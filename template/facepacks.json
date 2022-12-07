@@ -1,0 +1,289 @@
+[
+    {
+        "id": "parrots",
+        "name": "鹦鹉派对",
+        "p_url": "https://cdn.jsdelivr.net/gh/jmhobbs/cultofthepartyparrot.com/parrots/",
+        "p":"parrot",
+        "default": "{p_url}hd/{id}{p}.gif",
+        "nohd":"{p_url}{id}{p}.gif",
+        "faces": [
+            "60fps",
+            "aussie",
+            "middle",
+            "bored",
+            "bootleg",
+            {
+                "id": "birthday",
+                "url": "{p_url}hd/{id}party{p}.gif"
+            },
+            "bunny",
+            "christmas",
+            "confused",
+            "ceiling",
+            "disco",
+            "twins",
+            {
+                "id": "slomo",
+                "url": "{nohd}"
+            },
+            "horizontal",
+            {
+                "id": "async",
+                "url": "{nohd}"
+            },
+            {
+                "id": "database",
+                "url": "{nohd}"
+            },
+            {
+                "id": "merged",
+                "url": "{nohd}"
+            },
+            "node",
+            {
+                "id": "php",
+                "url": "{p_url}hd/{id}arrot.gif"
+            },
+            "github",
+            {
+                "id": "stub",
+                "url": "https://cdn.jsdelivr.net/gh/jmhobbs/cultofthepartyparrot.com/guests/hd/stubparrot.gif"
+            },
+            "spinning",
+            {
+                "id": "backward",
+                "url": "{p_url}hd/{id}s{p}.gif"
+            },
+            "angry",
+            "thumbsup",
+            "gentleman",
+            "hmm",
+            "headbanging",
+            "stable",
+            "spy",
+            "dad",
+            {
+                "id": "sleepy",
+                "url": "{p_url}hd/sleeping{p}.gif"
+            },
+            {
+                "id": "transparent",
+                "url": "{p_url}hd/transparront.gif"
+            },
+            {
+                "id": "portal",
+                "url": "{nohd}"
+            },
+            "portalblue",
+            "reverseportalblue",
+            "reverseportalorange",
+            "portalorange",
+            "original",
+            "reverseconga",
+            {
+                "id": "notfound",
+                "url": "{p_url}hd/{p}{id}.gif"
+            },
+            "short",
+            "bouncing",
+            "vertical",
+            "darkmode",
+            "sad",
+            "invisible",
+            {
+                "id": "witnessprotect",
+                "url": "https://cdn.jsdelivr.net/gh/jmhobbs/cultofthepartyparrot.com/guests/hd/{id}ionparrot.gif"
+            },
+            "ultrafast",
+            "jumping",
+            "quad",
+            {
+                "id": "dragonparrot",
+                "url": "https://cdn.jsdelivr.net/gh/DazaiYuki/PicStorage/img/{id}.png"
+            },
+            {
+                "id": "nyan",
+                "url": "https://cdn.jsdelivr.net/gh/jmhobbs/cultofthepartyparrot.com/guests/hd/{id}parrot.gif"
+            },
+            {
+                "id": "dab",
+                "url": "{nohd}"
+            },
+            "poke"
+        ]
+    },
+    {
+        "id": "yukicat",
+        "name": "站上表情包",
+        "p_url": "https://www.yukicat.net/wp-content/uploads/",
+        "faces": [
+            {
+                "id": "e_wu",
+                "url": "{p_url}2020/04/XA9N0LG@G8HDSD0HZ_9.jpg"
+            },
+            {
+                "id": "jesus",
+                "url": "{p_url}2019/12/Jesus.jpg"
+            },
+            {
+                "id": "急いですね",
+                "url": "{p_url}2020/04/50Q@J3EU27WLPO0H1IF.jpg"
+            },
+            {
+                "id": "是这样啊",
+                "url": "{p_url}2020/06/20200603221559.png"
+            },
+            {
+                "id": "?",
+                "url": "{p_url}2019/06/RN_R_WGEAFMY1GXH2PJ.jpg"
+            },
+            {
+                "id": "punch",
+                "url": "{p_url}2020/06/neptunepunch.jpg"
+            },
+            {
+                "id": "aaaa",
+                "url": "{p_url}2020/06/752ND9@QTWC2T7_PV1.jpg"
+            },
+            {
+                "id": "狐狸喝水",
+                "url": "{p_url}2020/07/狐狸喝水.jpg"
+            },
+            {
+                "id": "哈↑哈↑哈↑哈↑",
+                "url": "{p_url}2020/07/哈↑哈↑哈↑哈↑.jpg"
+            },
+            {
+                "id": "wtm惊讶",
+                "url": "https://image.yukicat.net/2020/08/20200830071200300.gif"
+            },
+            {
+                "id": "角羊笑",
+                "url": "{p_url}2020/07/角羊笑.gif"
+            },
+            {
+                "id": "遇到困难，睡大觉",
+                "url": "{p_url}2020/07/睡了.jpg"
+            },
+            {
+                "id": "kyaru114",
+                "url": "{p_url}2020/07/Kyaru114.gif"
+            },
+            {
+                "id": "cat-on-washingmac",
+                "url": "https://image.yukicat.net/2020/08/20200830074811572.gif"
+            },
+            {
+                "id": "肥肥",
+                "url": "https://image.yukicat.net/2020/10/20201005053126611.jpg"
+            },
+            {
+                "id": "麻了",
+                "url": "https://image.yukicat.net/2020/10/20201005053156548.jpg"
+            },
+            {
+                "id": "peko笑",
+                "url": "https://image.yukicat.net/2020/10/20201005053156715.jpg"
+            },
+            {
+                "id": "catshake",
+                "url": "https://image.yukicat.net/2020/11/20201115065025288.gif"
+            }
+        ]
+    },
+    {
+        "id": "in-river",
+        "name": "这河里吗？",
+        "default": "https://cdn.jsdelivr.net/gh/KotoriK/facepack-is-that-reasonable/{id}.jpg",
+        "faces": [
+            "这河里吗",
+            "这河里妈",
+            "这河狸吗",
+            "这核里吗",
+            "这恒河里",
+            "这合理吗",
+            "这合理吗~1",
+            "这真步河里",
+            "这贞德河里吗",
+            "这补胎合理",
+            "这像画吗"
+        ]
+    },
+    {
+        "id": "programmer",
+        "name": "程序员",
+        "p_url": "https://cdn.jsdelivr.net/gh/zhaoolee/ChineseBQB/024Programmer_程序员👨%E2%80%8D💻%E2%80%8DBQB/程序员000",
+        "faces": [
+            {
+                "id": "excited",
+                "url": "{p_url}42-我的内心非常{id}甚至还想再写两行代码.JPG"
+            },
+            {
+                "id": "deep_learning",
+                "url": "{p_url}14-深度学习.jpg"
+            },
+            {
+                "id": "代码写完了吗？",
+                "url": "{p_url}49-{id}还在这儿装B.gif"
+            },
+            {
+                "id": "反复滑稽",
+                "url": "{p_url}02-{id}.PNG"
+            },
+            {
+                "id": "mycodeVsof",
+                "url": "{p_url}07-MyCodeCodeOnStackOverFlow.jpg"
+            },
+            {
+                "id": "摘要模型数据评估",
+                "url": "{p_url}33-{id}.jpg"
+            }
+        ]
+    },
+    {
+        "id": "mur_cat",
+        "name": "Mur猫",
+        "p_url": "https://cdn.jsdelivr.net/gh/zhaoolee/ChineseBQB/060MurCat_Mur猫😺BQB/",
+        "faces": [
+            {
+                "id": "0",
+                "url": "{p_url}000000060.jpg"
+            },
+            {
+                "id": "glow",
+                "url": "{p_url}奇妙猫00002-炫光猫.gif"
+            },
+            {
+                "id": "?",
+                "url": "{p_url}奇妙猫00003-问号.jpg"
+            },
+            {
+                "id": "3",
+                "url": "{p_url}奇妙猫00004-口水猫.jpg"
+            }
+        ]
+    },
+    {
+        "id": "kaguya",
+        "name": "輝夜様は告らせたい",
+        "p_url": "https://cdn.jsdelivr.net/gh/zhaoolee/ChineseBQB/071辉夜大小姐🎀BQB/辉夜大小姐想让我告白000",
+        "faces": [
+            {
+                "id": "藤原敲打",
+                "url": "{p_url}20-卷报纸打人.gif"
+            },
+            {
+                "id": "抖",
+                "url": "{p_url}07-惊慌.gif"
+            },
+            {
+                "id": "kimo",
+                "url": "{p_url}18-你好恶心喔.jpg"
+            },
+            {
+                "id": "naruhodo",
+                "url": "{p_url}19-原来如此-侦探.jpg"
+            }
+        ]
+    }
+]
