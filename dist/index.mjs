@@ -1,4 +1,4 @@
-import { use, className, insert, effect, style, classList, setAttribute, template, createComponent, spread, mergeProps, memo } from 'solid-js/web';
+import { use, className, insert, effect, style, classList, setAttribute, template, createComponent, spread, mergeProps, memo, render } from 'solid-js/web';
 import { css } from '@emotion/css';
 import { createSignal, onCleanup, createEffect, createSelector, For, createContext, splitProps, useContext } from 'solid-js';
 import { autoUpdate, computePosition, shift, flip } from '@floating-ui/dom';
@@ -531,5 +531,62 @@ function preprocessFacePack(facepacks) {
   }
 }
 
-export { Peak, createFaceRenderer, createFaceSelector, defaultStyle, defaultStyleJSDelivr, getFaceFullUrl, importExternalFacePacks, preprocessFacePack, setStyleSetting, styleSetting };
-//# sourceMappingURL=FacePack.mjs.map
+function deployRenderer(facePackages) {
+  const render = createFaceRenderer({
+    facePackages: facePackages
+  });
+  setStyleSetting(defaultStyle);
+  document.querySelectorAll('article.hentry p:not(.ct-respond-form-textarea):not(.form-submit)').forEach(render);
+}
+function deploySelector(facePackages) {
+  let emotionBox;
+  let commentArea;
+  if ((emotionBox = document.querySelector('.emotion-box')) && (commentArea = document.querySelector('#comment'))) {
+    const [{
+      inspecting
+    }, FaceSelector] = createFaceSelector();
+    const [hide, setHide] = createSignal(true);
+    const [loadContent, setLoadContent] = createSignal(false);
+    render(() => createComponent(FaceSelector, {
+      facePacks: facePackages,
+      get loadContent() {
+        return loadContent();
+      },
+      handleHide: () => setHide(true),
+      get style() {
+        return `display:${hide() ? 'none' : 'block'}`;
+      },
+      onSelect: (pack, face) => {
+        commentArea.value += `:${pack.id}.${face.id}:`;
+      }
+    }), emotionBox);
+    // init toggler
+    document.getElementById('emotion-toggle')?.addEventListener('click', () => {
+      setLoadContent(true);
+      setHide(prev => !prev);
+    });
+
+    // init Peak
+    const peak = document.createElement('div');
+    document.body.append(peak);
+    render(() => {
+      const imgCaption = () => {
+        const face = inspecting();
+        return face ? face.descr ?? face.id : undefined;
+      };
+      return createComponent(Peak, {
+        get imgUrl() {
+          return inspecting()?.url;
+        },
+        get imgCaption() {
+          return imgCaption();
+        },
+        anchor: emotionBox,
+        show: true
+      });
+    }, peak);
+  }
+}
+
+export { Peak, createFaceRenderer, createFaceSelector, defaultStyle, defaultStyleJSDelivr, deployRenderer, deploySelector, getFaceFullUrl, importExternalFacePacks, preprocessFacePack, setStyleSetting, styleSetting };
+//# sourceMappingURL=index.mjs.map

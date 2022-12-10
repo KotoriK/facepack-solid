@@ -7,16 +7,13 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import dts from 'vite-plugin-dts'
 
 export default defineConfig({
-  plugins: [dts(), solidPlugin(), process.env.ANALYZE && visualizer()],
+  plugins: [dts({ rollupTypes: true }), solidPlugin(), process.env.ANALYZE && visualizer()],
   build: {
     lib: {
-      entry: process.env.DEPLOYER ? path.resolve(__dirname, 'template/SakurairoDeployer.tsx') : path.resolve(__dirname, 'src/index.ts'),
+      entry: path.resolve(__dirname, 'src/index.ts'),
       formats: ['es', 'cjs'],
       // the proper extensions will be added
-      fileName: (format, entryName) => {
-        const extension = format === 'cjs' ? '.js' : '.mjs'
-        return (entryName.includes('SakurairoDeployer') ? 'SakurairoDeployer' : 'FacePack') + extension
-      },
+      fileName: 'index',
     },
     target: 'esnext',
     minify: false,
@@ -25,6 +22,5 @@ export default defineConfig({
     rollupOptions: {
       external: Object.keys(pkg.dependencies).map(moduleName => new RegExp('^' + moduleName))
     },
-    emptyOutDir: false // 手动清空
   },
 });

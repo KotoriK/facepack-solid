@@ -535,14 +535,73 @@ function preprocessFacePack(facepacks) {
   }
 }
 
+function deployRenderer(facePackages) {
+  const render = createFaceRenderer({
+    facePackages: facePackages
+  });
+  setStyleSetting(defaultStyle);
+  document.querySelectorAll('article.hentry p:not(.ct-respond-form-textarea):not(.form-submit)').forEach(render);
+}
+function deploySelector(facePackages) {
+  let emotionBox;
+  let commentArea;
+  if ((emotionBox = document.querySelector('.emotion-box')) && (commentArea = document.querySelector('#comment'))) {
+    const [{
+      inspecting
+    }, FaceSelector] = createFaceSelector();
+    const [hide, setHide] = solidJs.createSignal(true);
+    const [loadContent, setLoadContent] = solidJs.createSignal(false);
+    web.render(() => web.createComponent(FaceSelector, {
+      facePacks: facePackages,
+      get loadContent() {
+        return loadContent();
+      },
+      handleHide: () => setHide(true),
+      get style() {
+        return `display:${hide() ? 'none' : 'block'}`;
+      },
+      onSelect: (pack, face) => {
+        commentArea.value += `:${pack.id}.${face.id}:`;
+      }
+    }), emotionBox);
+    // init toggler
+    document.getElementById('emotion-toggle')?.addEventListener('click', () => {
+      setLoadContent(true);
+      setHide(prev => !prev);
+    });
+
+    // init Peak
+    const peak = document.createElement('div');
+    document.body.append(peak);
+    web.render(() => {
+      const imgCaption = () => {
+        const face = inspecting();
+        return face ? face.descr ?? face.id : undefined;
+      };
+      return web.createComponent(Peak, {
+        get imgUrl() {
+          return inspecting()?.url;
+        },
+        get imgCaption() {
+          return imgCaption();
+        },
+        anchor: emotionBox,
+        show: true
+      });
+    }, peak);
+  }
+}
+
 exports.Peak = Peak;
 exports.createFaceRenderer = createFaceRenderer;
 exports.createFaceSelector = createFaceSelector;
 exports.defaultStyle = defaultStyle;
 exports.defaultStyleJSDelivr = defaultStyleJSDelivr;
+exports.deployRenderer = deployRenderer;
+exports.deploySelector = deploySelector;
 exports.getFaceFullUrl = getFaceFullUrl;
 exports.importExternalFacePacks = importExternalFacePacks;
 exports.preprocessFacePack = preprocessFacePack;
 exports.setStyleSetting = setStyleSetting;
 exports.styleSetting = styleSetting;
-//# sourceMappingURL=FacePack.js.map
+//# sourceMappingURL=index.js.map

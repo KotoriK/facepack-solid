@@ -2,12 +2,13 @@
   "name": "facepack-solid",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/FacePack.js",
-  "module": "dist/FacePack.mjs",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "vite",
-    "build": "npx rimraf ./dist && vite build && cross-env DEPLOYER=1 vite build",
+    "build": "vite build",
     "analyze": "cross-env ANALYZE=1 vite build"
   },
   "files": [
