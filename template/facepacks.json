@@ -3,9 +3,9 @@
         "id": "parrots",
         "name": "鹦鹉派对",
         "p_url": "https://cdn.jsdelivr.net/gh/jmhobbs/cultofthepartyparrot.com/parrots/",
-        "p":"parrot",
+        "p": "parrot",
         "default": "{p_url}hd/{id}{p}.gif",
-        "nohd":"{p_url}{id}{p}.gif",
+        "nohd": "{p_url}{id}{p}.gif",
         "faces": [
             "60fps",
             "aussie",
@@ -90,6 +90,7 @@
             "darkmode",
             "sad",
             "invisible",
+            "illuminati",
             {
                 "id": "witnessprotect",
                 "url": "https://cdn.jsdelivr.net/gh/jmhobbs/cultofthepartyparrot.com/guests/hd/{id}ionparrot.gif"
@@ -109,7 +110,8 @@
                 "id": "dab",
                 "url": "{nohd}"
             },
-            "poke"
+            "poke",
+            "accessible"
         ]
     },
     {

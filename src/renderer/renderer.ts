@@ -3,13 +3,13 @@ import { processTemplate } from "../util/template"
 /**
  * 可选字段
  */
-interface FaceDisplayPropOptional {
+interface FaceRendererPropOptional {
     imgClassName?: string
     imgInlineStyle?: string
     leftBracket?: string
     rightBracket?: string
 }
-export interface FaceDisplayProp extends FaceDisplayPropOptional {
+export interface FaceRendererProp extends FaceRendererPropOptional {
     facePackages: Array<FacePackage>
 }
 
@@ -18,14 +18,14 @@ export interface FaceDisplayProp extends FaceDisplayPropOptional {
  * @param param0 
  * @returns 
  */
-export function createFaceDisplay(
+export function createFaceRenderer(
     {
         facePackages,
         imgClassName = '',
         imgInlineStyle = 'max-height:6vh;',
         leftBracket = ':',
         rightBracket = ':'
-    }: FaceDisplayProp) {
+    }: FaceRendererProp) {
     const map: Record<string, string> = {}
     for (const pack of facePackages) {
         for (const face of pack.faces) {
@@ -42,7 +42,7 @@ export function createFaceDisplay(
     }
     const renderText = (text: string) => processTemplate(leftBracket, rightBracket, replacePlaceHolder, text)
 
-    return function display(displayOn: Element | string) {
+    return function renderFace(displayOn: Element | string) {
         if (typeof displayOn === 'string') {
             return renderText(displayOn)
         } else {

@@ -46,6 +46,11 @@ export interface Face {
      */
     url: string
 
+    /**
+     * 表情描述
+     */
+    descr?: string
+
 }
 export type FaceDefine = {
     id: string
@@ -54,16 +59,16 @@ export type FaceDefine = {
 export function getFaceFullUrl(face: FaceDefine, parentPack: FacePackageDefine | FacePackage) {
     const _face = typeof face == "string" ? { id: face } : face
     const _process = (ph: string) => processTemplate('{', '}', (str) => {
-        if(str=='id'){
+        if (str == 'id') {
             return _face.id
-        }else if (str in parentPack){
-            return parentPack[str]
-        }else{
+        } else if (str in parentPack) {
+            return parentPack[str as keyof typeof parentPack] as string
+        } else {
             return `{${str}}`
         }
     }, ph)
     const { url, ...other_key } = _face
     return {
-        ...other_key, url: _process(url && _process(url) || parentPack.default)
+        ...other_key, url: _process(url && _process(url) || parentPack.default!)
     }
 }
