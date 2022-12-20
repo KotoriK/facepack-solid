@@ -33,5 +33,10 @@
     "@emotion/css": "^11.10.5",
     "@floating-ui/dom": "^1.0.12",
     "solid-js": "^1.6.5"
+  },
+  "peerDependencies": {
+    "@emotion/css": "^11",
+    "@floating-ui/dom": "^1",
+    "solid-js": "^1.6"
   }
 }
