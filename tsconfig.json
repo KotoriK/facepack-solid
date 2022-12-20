@@ -90,7 +90,10 @@
     // "allowUnreachableCode": true,                     /* Disable error reporting for unreachable code. */
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
-    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+    "skipLibCheck": true, /* Skip type checking all .d.ts files. */
+    "types": [
+      "vite/client"
+    ],
   },
   "baseUrl": "./",
   "paths": {
@@ -103,6 +106,5 @@
     "src/**/*.tsx",
     "template/**/*.ts",
     "template/**/*.tsx",
-    "vite/client.d.ts",
   ],
 }
