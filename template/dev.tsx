@@ -31,11 +31,10 @@ import { createSignal } from 'solid-js'
 
     const display = createFaceRenderer({ facePackages: facePacks })
     commentArea
-        .addEventListener('change', (e) => {
+        .addEventListener('input', (e) => {
             document.getElementById('display')!.innerText = commentArea.value
             display(document.getElementById('display')!)
         })
-    display(document.getElementById('display')!)
 
     setStyleSetting(defaultStyle)
 
