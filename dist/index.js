@@ -67,7 +67,7 @@ function Peak(props) {
       cleanup = undefined;
     }
   });
-  const show = () => Boolean(props.src) && props.show;
+  const show = () => Boolean(props.src); /* && props.show */
   const isImage = () => Boolean(props.src?.match(REG_IMAGE));
   return (() => {
     const _el$ = _tmpl$$5.cloneNode(true),
@@ -461,7 +461,7 @@ function FlexboxView(props) {
 const _tmpl$ = /*#__PURE__*/web.template(`<div><div></div></div>`, 4);
 const main = css.css({
   padding: '2px',
-  height: mainHeight,
+  maxHeight: mainHeight,
   width: '100%'
 });
 const styleInner = css.css({
@@ -652,8 +652,7 @@ function deploySelector(facePackages) {
         get descr() {
           return imgCaption();
         },
-        anchor: emotionBox,
-        show: true
+        anchor: emotionBox
       });
     }, peak);
   }

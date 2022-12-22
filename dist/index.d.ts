@@ -144,7 +144,6 @@ export declare interface PeakProps {
      */
     src?: string;
     descr?: string;
-    show: boolean;
     class?: string;
     anchor?: HTMLElement;
 }
