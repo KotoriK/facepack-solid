@@ -287,5 +287,207 @@
                 "url": "{p_url}19-原来如此-侦探.jpg"
             }
         ]
+    },
+    {
+        "id": "bocchi_the_rock",
+        "name": "孤独摇滚",
+        "faces": [
+            {
+                "id": "grinning_squinting_face",
+                "url": "./Bocchi_the_Rock_Stickers/000_grinning_squinting_face.webm"
+            },
+            {
+                "id": "sad_but_relieved_face",
+                "url": "./Bocchi_the_Rock_Stickers/001_sad_but_relieved_face.webm"
+            },
+            {
+                "id": "grinning_squinting_face",
+                "url": "./Bocchi_the_Rock_Stickers/002_grinning_squinting_face.webm"
+            },
+            {
+                "id": "exploding_head",
+                "url": "./Bocchi_the_Rock_Stickers/003_exploding_head.webm"
+            },
+            {
+                "id": "persevering_face",
+                "url": "./Bocchi_the_Rock_Stickers/004_persevering_face.webm"
+            },
+            {
+                "id": "confounded_face",
+                "url": "./Bocchi_the_Rock_Stickers/005_confounded_face.webm"
+            },
+            {
+                "id": "face_with_crossed",
+                "url": "./Bocchi_the_Rock_Stickers/006_face_with_crossed-out_eyes.webm"
+            },
+            {
+                "id": "fearful_face",
+                "url": "./Bocchi_the_Rock_Stickers/007_fearful_face.webm"
+            },
+            {
+                "id": "grinning_squinting_face",
+                "url": "./Bocchi_the_Rock_Stickers/008_grinning_squinting_face.webm"
+            },
+            {
+                "id": "smiling_face",
+                "url": "./Bocchi_the_Rock_Stickers/009_smiling_face.webm"
+            },
+            {
+                "id": "smiling_face_with_hearts",
+                "url": "./Bocchi_the_Rock_Stickers/010_smiling_face_with_hearts.webm"
+            },
+            {
+                "id": "smiling_face_with_open_hands",
+                "url": "./Bocchi_the_Rock_Stickers/011_smiling_face_with_open_hands.webm"
+            },
+            {
+                "id": "expressionless_face",
+                "url": "./Bocchi_the_Rock_Stickers/012_expressionless_face.webm"
+            },
+            {
+                "id": "rice_ball",
+                "url": "./Bocchi_the_Rock_Stickers/013_rice_ball.webm"
+            },
+            {
+                "id": "grinning_squinting_face",
+                "url": "./Bocchi_the_Rock_Stickers/014_grinning_squinting_face.webm"
+            },
+            {
+                "id": "star",
+                "url": "./Bocchi_the_Rock_Stickers/015_star-struck.webm"
+            },
+            {
+                "id": "loudly_crying_face",
+                "url": "./Bocchi_the_Rock_Stickers/016_loudly_crying_face.webm"
+            },
+            {
+                "id": "dotted_line_face",
+                "url": "./Bocchi_the_Rock_Stickers/017_dotted_line_face.webm"
+            },
+            {
+                "id": "folded_hands",
+                "url": "./Bocchi_the_Rock_Stickers/018_folded_hands.webm"
+            },
+            {
+                "id": "face_with_spiral_eyes",
+                "url": "./Bocchi_the_Rock_Stickers/019_face_with_spiral_eyes.webm"
+            },
+            {
+                "id": "fearful_face",
+                "url": "./Bocchi_the_Rock_Stickers/020_fearful_face.webm"
+            },
+            {
+                "id": "face_screaming_in_fear",
+                "url": "./Bocchi_the_Rock_Stickers/021_face_screaming_in_fear.webm"
+            },
+            {
+                "id": "flushed_face",
+                "url": "./Bocchi_the_Rock_Stickers/022_flushed_face.webm"
+            },
+            {
+                "id": "hot_face",
+                "url": "./Bocchi_the_Rock_Stickers/023_hot_face.webm"
+            },
+            {
+                "id": "melting_face",
+                "url": "./Bocchi_the_Rock_Stickers/024_melting_face.webm"
+            },
+            {
+                "id": "hot_beverage",
+                "url": "./Bocchi_the_Rock_Stickers/025_hot_beverage.webm"
+            },
+            {
+                "id": "grinning_squinting_face",
+                "url": "./Bocchi_the_Rock_Stickers/026_grinning_squinting_face.webm"
+            },
+            {
+                "id": "exclamation_question_mark",
+                "url": "./Bocchi_the_Rock_Stickers/027_exclamation_question_mark.webm"
+            },
+            {
+                "id": "tired_face",
+                "url": "./Bocchi_the_Rock_Stickers/028_tired_face.webm"
+            },
+            {
+                "id": "smiling_face_with_halo",
+                "url": "./Bocchi_the_Rock_Stickers/029_smiling_face_with_halo.webm"
+            },
+            {
+                "id": "folded_hands",
+                "url": "./Bocchi_the_Rock_Stickers/030_folded_hands.webm"
+            },
+            {
+                "id": "folded_hands",
+                "url": "./Bocchi_the_Rock_Stickers/031_folded_hands.webm"
+            },
+            {
+                "id": "zany_face",
+                "url": "./Bocchi_the_Rock_Stickers/032_zany_face.webm"
+            },
+            {
+                "id": "fearful_face",
+                "url": "./Bocchi_the_Rock_Stickers/033_fearful_face.webm"
+            },
+            {
+                "id": "face_screaming_in_fear",
+                "url": "./Bocchi_the_Rock_Stickers/034_face_screaming_in_fear.webm"
+            },
+            {
+                "id": "grinning_squinting_face",
+                "url": "./Bocchi_the_Rock_Stickers/035_grinning_squinting_face.webm"
+            },
+            {
+                "id": "grinning_face_with_sweat",
+                "url": "./Bocchi_the_Rock_Stickers/036_grinning_face_with_sweat.webm"
+            },
+            {
+                "id": "thinking_face",
+                "url": "./Bocchi_the_Rock_Stickers/037_thinking_face.webm"
+            },
+            {
+                "id": "face_with_tears_of_joy",
+                "url": "./Bocchi_the_Rock_Stickers/038_face_with_tears_of_joy.webm"
+            },
+            {
+                "id": "exploding_head",
+                "url": "./Bocchi_the_Rock_Stickers/039_exploding_head.webm"
+            },
+            {
+                "id": "downcast_face_with_sweat",
+                "url": "./Bocchi_the_Rock_Stickers/040_downcast_face_with_sweat.webm"
+            },
+            {
+                "id": "face_screaming_in_fear",
+                "url": "./Bocchi_the_Rock_Stickers/041_face_screaming_in_fear.webm"
+            },
+            {
+                "id": "beaming_face_with_smiling_eyes",
+                "url": "./Bocchi_the_Rock_Stickers/042_beaming_face_with_smiling_eyes.webm"
+            },
+            {
+                "id": "anxious_face_with_sweat",
+                "url": "./Bocchi_the_Rock_Stickers/043_anxious_face_with_sweat.webm"
+            },
+            {
+                "id": "grinning_face_with_sweat",
+                "url": "./Bocchi_the_Rock_Stickers/044_grinning_face_with_sweat.webm"
+            },
+            {
+                "id": "waving_hand",
+                "url": "./Bocchi_the_Rock_Stickers/045_waving_hand.webm"
+            },
+            {
+                "id": "anxious_face_with_sweat",
+                "url": "./Bocchi_the_Rock_Stickers/046_anxious_face_with_sweat.webm"
+            },
+            {
+                "id": "dog_face",
+                "url": "./Bocchi_the_Rock_Stickers/047_dog_face.webm"
+            },
+            {
+                "id": "fearful_face",
+                "url": "./Bocchi_the_Rock_Stickers/048_fearful_face.webm"
+            }
+        ]
     }
 ]
