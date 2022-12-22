@@ -19,7 +19,7 @@ const bgWhiteBlur = css.css({
   backdropFilter: "blur(3px)"
 });
 
-const REG_IMAGE = /\.(jpg|png|gif)$/;
+const REG_IMAGE = /\.(jpg|png|gif)$/i;
 
 const _tmpl$$5 = /*#__PURE__*/web.template(`<figure><hr><figcaption></figcaption></figure>`, 5),
   _tmpl$2$2 = /*#__PURE__*/web.template(`<img>`, 1),
