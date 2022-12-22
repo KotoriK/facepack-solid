@@ -1,1 +1,1 @@
-export const REG_IMAGE = /\.(jpg|png|gif)$/
+export const REG_IMAGE = /\.(jpg|png|gif)$/i
