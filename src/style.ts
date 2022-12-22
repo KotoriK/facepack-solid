@@ -13,7 +13,3 @@ export const bgWhiteBlur = css({
     backgroundColor: 'rgba(255,255,255,0.6)',
     backdropFilter: 'blur(3px)'
 })
-export const main = css({
-    padding: '2px',
-    height: mainHeight
-})

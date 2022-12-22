@@ -2,10 +2,22 @@ import { FacePackage, Face } from '../../FacePackage';
 import Tabs from './Tabs';
 import FlexboxView from './FlexboxView';
 import { createSignal, JSX } from 'solid-js';
-import { borderShadow, bgWhiteBlur, main } from '../../style';
+import { borderShadow, bgWhiteBlur, mainHeight } from '../../style';
 import { SelectorContext } from '../context';
 import { FaceSelectorState } from '../../store';
+import { css } from '@emotion/css'
 
+const main = css({
+    padding: '2px',
+    height: mainHeight,
+    width: '100%',
+})
+const styleInner = css({
+    height: '100%',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column'
+})
 export interface FaceSelectorProps {
     /**
     *  加载的表情包集
@@ -83,14 +95,16 @@ export function createFaceSelector() {
                 }}
                 style={props.style}
             >
-                <Tabs facePackages={props.facePacks}
-                    selectedPos={nowPackagePos()}
-                    onSelect={setPos}
-                />
-                {
-                    props.loadContent &&
-                    <FlexboxView facePackage={props.facePacks[nowPackagePos()]} />
-                }
+                <div class={styleInner}>
+                    <Tabs facePackages={props.facePacks}
+                        selectedPos={nowPackagePos()}
+                        onSelect={setPos}
+                    />
+                    {
+                        props.loadContent &&
+                        <FlexboxView facePackage={props.facePacks[nowPackagePos()]} />
+                    }
+                </div>
             </div>
         </SelectorContext.Provider>
     }] as const
