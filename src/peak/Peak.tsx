@@ -10,8 +10,8 @@ export interface PeakProps {
      */
     src?: string
     descr?: string
-    show: boolean
-    class?: string
+/*     show: boolean
+ */    class?: string
     anchor?: HTMLElement
 }
 
@@ -68,7 +68,7 @@ export function Peak(props: PeakProps) {
             cleanup = undefined
         }
     })
-    const show = () => Boolean(props.src) && props.show
+    const show = () => Boolean(props.src) /* && props.show */
     const isImage = () => Boolean(props.src?.match(REG_IMAGE))
     return (
         <figure style={{ display: show() ? 'block' : 'none',/*  ...props.style */ ...style() }}

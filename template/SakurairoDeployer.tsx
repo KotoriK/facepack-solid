@@ -43,7 +43,7 @@ export function deploySelector(facePackages: FacePackage[]) {
                 const face = inspecting()
                 return face ? (face.descr ?? face.id) : undefined
             }
-            return <Peak src={inspecting()?.url} descr={imgCaption()} anchor={emotionBox!} show />
+            return <Peak src={inspecting()?.url} descr={imgCaption()} anchor={emotionBox!} />
         }, peak)
     }
 }
