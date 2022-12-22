@@ -196,7 +196,11 @@ function createFaceRenderer({
   const replacePlaceHolder = (placeHolder) => {
     const url = map[placeHolder];
     if (url) {
-      return `<img class="${imgClassName}" src="${url}" style="${imgInlineStyle}" alt="${leftBracket}${placeHolder}${rightBracket}"/>`;
+      if (url.match(REG_IMAGE)) {
+        return `<img class="${imgClassName}" src="${url}" style="${imgInlineStyle}" alt="${leftBracket}${placeHolder}${rightBracket}"/>`;
+      } else {
+        return `<video class="${imgClassName}" src="${url}" style="${imgInlineStyle}" title="${leftBracket}${placeHolder}${rightBracket}" playsinline muted loop autoplay></video>`;
+      }
     } else {
       return `${leftBracket}${placeHolder}${rightBracket}`;
     }
