@@ -1,4 +1,5 @@
 import { FacePackage } from "../FacePackage"
+import { REG_IMAGE } from "../util/isImage"
 import { processTemplate } from "../util/template"
 /**
  * 可选字段
@@ -35,7 +36,11 @@ export function createFaceRenderer(
     const replacePlaceHolder = (placeHolder: string) => {
         const url = map[placeHolder]
         if (url) {
-            return `<img class="${imgClassName}" src="${url}" style="${imgInlineStyle}" alt="${leftBracket}${placeHolder}${rightBracket}"/>`
+            if (url.match(REG_IMAGE)) {
+                return `<img class="${imgClassName}" src="${url}" style="${imgInlineStyle}" alt="${leftBracket}${placeHolder}${rightBracket}"/>`
+            } else {
+                return `<video class="${imgClassName}" src="${url}" style="${imgInlineStyle}" title="${leftBracket}${placeHolder}${rightBracket}" playsinline muted loop autoplay></video>`
+            }
         } else {
             return `${leftBracket}${placeHolder}${rightBracket}`
         }
