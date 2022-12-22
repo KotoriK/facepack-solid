@@ -1,0 +1,1 @@
+export const REG_IMAGE = /\.(jpg|png|gif)$/
