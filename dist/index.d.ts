@@ -142,8 +142,8 @@ export declare interface PeakProps {
     /**
      * 未提供时不会渲染
      */
-    imgUrl?: string;
-    imgCaption?: string;
+    src?: string;
+    descr?: string;
     show: boolean;
     class?: string;
     anchor?: HTMLElement;

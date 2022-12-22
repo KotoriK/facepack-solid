@@ -18,12 +18,12 @@ const bgWhiteBlur = css.css({
   backgroundColor: "rgba(255,255,255,0.6)",
   backdropFilter: "blur(3px)"
 });
-const main = css.css({
-  padding: "2px",
-  height: mainHeight
-});
 
-const _tmpl$$5 = /*#__PURE__*/web.template(`<figure><img height="200"><hr><figcaption></figcaption></figure>`, 6);
+const REG_IMAGE = /\.(jpg|png|gif)$/;
+
+const _tmpl$$5 = /*#__PURE__*/web.template(`<figure><hr><figcaption></figcaption></figure>`, 5),
+  _tmpl$2$2 = /*#__PURE__*/web.template(`<img>`, 1),
+  _tmpl$3 = /*#__PURE__*/web.template(`<video playsinline loop muted autoplay></video>`, 2);
 const styleFigCaption = css.css({
   textAlign: "center",
   backgroundColor: 'rgba(255,255,255,0.65)'
@@ -32,12 +32,17 @@ const styleHr = css.css({
   marginTop: 0,
   marginBottom: 0
 });
+const styleFace = css.css({
+  minWidth: 200,
+  height: 200
+});
 function Peak(props) {
   const [style, setStyle] = solidJs.createSignal({
     position: 'absolute',
     top: 0,
     left: 0,
-    width: 'max-content'
+    width: 'max-content',
+    "min-width": 'auto'
   });
   let refSelf;
   const updatePosition = async () => {
@@ -62,16 +67,30 @@ function Peak(props) {
       cleanup = undefined;
     }
   });
-  const show = () => Boolean(props.imgUrl) && props.show;
+  const show = () => Boolean(props.src) && props.show;
+  const isImage = () => Boolean(props.src?.match(REG_IMAGE));
   return (() => {
     const _el$ = _tmpl$$5.cloneNode(true),
       _el$2 = _el$.firstChild,
-      _el$3 = _el$2.nextSibling,
-      _el$4 = _el$3.nextSibling;
+      _el$3 = _el$2.nextSibling;
     const _ref$ = refSelf;
     typeof _ref$ === "function" ? web.use(_ref$, _el$) : refSelf = _el$;
-    web.className(_el$3, styleHr);
-    web.insert(_el$4, () => props.imgCaption);
+    web.insert(_el$, (() => {
+      const _c$ = web.memo(() => !!isImage());
+      return () => _c$() ? (() => {
+        const _el$4 = _tmpl$2$2.cloneNode(true);
+        web.className(_el$4, styleFace);
+        web.effect(() => web.setAttribute(_el$4, "src", props.src));
+        return _el$4;
+      })() : (() => {
+        const _el$5 = _tmpl$3.cloneNode(true);
+        web.className(_el$5, styleFace);
+        web.effect(() => web.setAttribute(_el$5, "src", props.src));
+        return _el$5;
+      })();
+    })(), _el$2);
+    web.className(_el$2, styleHr);
+    web.insert(_el$3, () => props.descr);
     web.effect(_p$ => {
       const _v$ = {
           display: show() ? 'block' : 'none',
@@ -84,21 +103,18 @@ function Peak(props) {
           [borderShadow]: true,
           [bgWhiteBlur]: true
         },
-        _v$3 = props.imgUrl,
-        _v$4 = {
+        _v$3 = {
           [styleFigCaption]: true,
           [bgWhiteBlur]: true
         };
       _p$._v$ = web.style(_el$, _v$, _p$._v$);
       _p$._v$2 = web.classList(_el$, _v$2, _p$._v$2);
-      _v$3 !== _p$._v$3 && web.setAttribute(_el$2, "src", _p$._v$3 = _v$3);
-      _p$._v$4 = web.classList(_el$4, _v$4, _p$._v$4);
+      _p$._v$3 = web.classList(_el$3, _v$3, _p$._v$3);
       return _p$;
     }, {
       _v$: undefined,
       _v$2: undefined,
-      _v$3: undefined,
-      _v$4: undefined
+      _v$3: undefined
     });
     return _el$;
   })();
@@ -199,7 +215,7 @@ function createFaceRenderer({
 }
 
 const _tmpl$$4 = /*#__PURE__*/web.template(`<option></option>`, 2),
-  _tmpl$2 = /*#__PURE__*/web.template(`<select></select>`, 2);
+  _tmpl$2$1 = /*#__PURE__*/web.template(`<select></select>`, 2);
 /**
  *选项卡的单个标签
  *
@@ -242,7 +258,7 @@ const styles = css.css({
 function Tabs(props) {
   const isSelected = solidJs.createSelector(() => props.selectedPos);
   return (() => {
-    const _el$2 = _tmpl$2.cloneNode(true);
+    const _el$2 = _tmpl$2$1.cloneNode(true);
     _el$2.addEventListener("change", e => props.onSelect(parseInt(e.currentTarget.value)));
     const _ref$ = props.ref;
     typeof _ref$ === "function" ? web.use(_ref$, _el$2) : props.ref = _el$2;
@@ -272,15 +288,15 @@ function Tabs(props) {
 
 const SelectorContext = solidJs.createContext();
 
-const PendingIndicator = "<?xml version=\"1.0\" encoding=\"utf-8\"?><svg xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" style=\"margin: auto; background: none; display: block; shape-rendering: auto;\" width=\"237px\" height=\"237px\" viewBox=\"0 0 100 100\" preserveAspectRatio=\"xMidYMid\"><circle cx=\"50\" cy=\"50\" r=\"39.4996\" fill=\"none\" stroke=\"#85a2b6\" stroke-width=\"3\"><animate attributeName=\"r\" repeatCount=\"indefinite\" dur=\"1.2987012987012987s\" values=\"0;40\" keyTimes=\"0;1\" keySplines=\"0 0.2 0.8 1\" calcMode=\"spline\" begin=\"-0.6493506493506493s\"></animate><animate attributeName=\"opacity\" repeatCount=\"indefinite\" dur=\"1.2987012987012987s\" values=\"1;0\" keyTimes=\"0;1\" keySplines=\"0.2 0 0.8 1\" calcMode=\"spline\" begin=\"-0.6493506493506493s\"></animate></circle><circle cx=\"50\" cy=\"50\" r=\"23.8531\" fill=\"none\" stroke=\"#bbcedd\" stroke-width=\"3\"><animate attributeName=\"r\" repeatCount=\"indefinite\" dur=\"1.2987012987012987s\" values=\"0;40\" keyTimes=\"0;1\" keySplines=\"0 0.2 0.8 1\" calcMode=\"spline\"></animate><animate attributeName=\"opacity\" repeatCount=\"indefinite\" dur=\"1.2987012987012987s\" values=\"1;0\" keyTimes=\"0;1\" keySplines=\"0.2 0 0.8 1\" calcMode=\"spline\"></animate></circle><!-- [ldio] generated by https://loading.io/ --></svg>";
+const PendingIndicator = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHN0eWxlPSJtYXJnaW46IGF1dG87IGJhY2tncm91bmQ6IG5vbmU7IGRpc3BsYXk6IGJsb2NrOyBzaGFwZS1yZW5kZXJpbmc6IGF1dG87IiB3aWR0aD0iMjM3cHgiIGhlaWdodD0iMjM3cHgiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkuNDk5NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODVhMmI2IiBzdHJva2Utd2lkdGg9IjMiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMDs0MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMCAwLjIgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiIGJlZ2luPSItMC42NDkzNTA2NDkzNTA2NDkzcyI+PC9hbmltYXRlPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9Im9wYWNpdHkiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMTswIiBrZXlUaW1lcz0iMDsxIiBrZXlTcGxpbmVzPSIwLjIgMCAwLjggMSIgY2FsY01vZGU9InNwbGluZSIgYmVnaW49Ii0wLjY0OTM1MDY0OTM1MDY0OTNzIj48L2FuaW1hdGU+PC9jaXJjbGU+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjMuODUzMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYmJjZWRkIiBzdHJva2Utd2lkdGg9IjMiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMDs0MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMCAwLjIgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiPjwvYW5pbWF0ZT48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgZHVyPSIxLjI5ODcwMTI5ODcwMTI5ODdzIiB2YWx1ZXM9IjE7MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMC4yIDAgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiPjwvYW5pbWF0ZT48L2NpcmNsZT48IS0tIFtsZGlvXSBnZW5lcmF0ZWQgYnkgaHR0cHM6Ly9sb2FkaW5nLmlvLyAtLT48L3N2Zz4=";
 
-const ErrorIndicator = "<?xml version=\"1.0\" standalone=\"no\"?><!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\" \"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\"><svg t=\"1592208136990\" class=\"icon\" viewBox=\"0 0 1024 1024\" version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" p-id=\"3390\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" width=\"200\" height=\"200\"><defs><style type=\"text/css\"></style></defs><path d=\"M512 1000.727273a488.727273 488.727273 0 1 1 488.727273-488.727273 488.727273 488.727273 0 0 1-488.727273 488.727273z m0-919.272728a430.545455 430.545455 0 1 0 430.545455 430.545455A430.545455 430.545455 0 0 0 512 81.454545z\" fill=\"\" p-id=\"3391\"></path><path d=\"M721.454545 750.545455a28.974545 28.974545 0 0 1-20.596363-8.494546L281.6 322.443636a29.090909 29.090909 0 0 1 41.192727-41.192727L742.4 700.858182A29.090909 29.090909 0 0 1 721.454545 750.545455z\" fill=\"\" p-id=\"3392\"></path><path d=\"M302.545455 750.545455a29.090909 29.090909 0 0 1-20.596364-49.687273l419.258182-419.607273a29.090909 29.090909 0 0 1 41.192727 41.192727L322.792727 742.050909a28.974545 28.974545 0 0 1-20.247272 8.494546z\" fill=\"\" p-id=\"3393\"></path></svg>";
+const ErrorIndicator = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTkyMjA4MTM2OTkwIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjMzOTAiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNTEyIDEwMDAuNzI3MjczYTQ4OC43MjcyNzMgNDg4LjcyNzI3MyAwIDEgMSA0ODguNzI3MjczLTQ4OC43MjcyNzMgNDg4LjcyNzI3MyA0ODguNzI3MjczIDAgMCAxLTQ4OC43MjcyNzMgNDg4LjcyNzI3M3ogbTAtOTE5LjI3MjcyOGE0MzAuNTQ1NDU1IDQzMC41NDU0NTUgMCAxIDAgNDMwLjU0NTQ1NSA0MzAuNTQ1NDU1QTQzMC41NDU0NTUgNDMwLjU0NTQ1NSAwIDAgMCA1MTIgODEuNDU0NTQ1eiIgZmlsbD0iIiBwLWlkPSIzMzkxIj48L3BhdGg+PHBhdGggZD0iTTcyMS40NTQ1NDUgNzUwLjU0NTQ1NWEyOC45NzQ1NDUgMjguOTc0NTQ1IDAgMCAxLTIwLjU5NjM2My04LjQ5NDU0NkwyODEuNiAzMjIuNDQzNjM2YTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNDEuMTkyNzI3LTQxLjE5MjcyN0w3NDIuNCA3MDAuODU4MTgyQTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNzIxLjQ1NDU0NSA3NTAuNTQ1NDU1eiIgZmlsbD0iIiBwLWlkPSIzMzkyIj48L3BhdGg+PHBhdGggZD0iTTMwMi41NDU0NTUgNzUwLjU0NTQ1NWEyOS4wOTA5MDkgMjkuMDkwOTA5IDAgMCAxLTIwLjU5NjM2NC00OS42ODcyNzNsNDE5LjI1ODE4Mi00MTkuNjA3MjczYTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNDEuMTkyNzI3IDQxLjE5MjcyN0wzMjIuNzkyNzI3IDc0Mi4wNTA5MDlhMjguOTc0NTQ1IDI4Ljk3NDU0NSAwIDAgMS0yMC4yNDcyNzIgOC40OTQ1NDZ6IiBmaWxsPSIiIHAtaWQ9IjMzOTMiPjwvcGF0aD48L3N2Zz4=";
 
 const [styleSetting, setStyleSetting] = store.createStore({});
 const defaultStyle = {
   svg: {
-    pending: "data:image/svg+xml;utf8," + PendingIndicator,
-    error: "data:image/svg+xml;utf8," + ErrorIndicator
+    pending: PendingIndicator,
+    error: ErrorIndicator
   }
 };
 const defaultStyleJSDelivr = {
@@ -315,7 +331,8 @@ function Indicator(prop) {
   })();
 }
 
-const _tmpl$$2 = /*#__PURE__*/web.template(`<img>`, 1);
+const _tmpl$$2 = /*#__PURE__*/web.template(`<img>`, 1),
+  _tmpl$2 = /*#__PURE__*/web.template(`<video></video>`, 2);
 /**
  * 表情的渲染
  *
@@ -334,8 +351,19 @@ function FaceView(props) {
     setLoaded(true);
     setError(false);
   };
-  const [face, forwardProp] = solidJs.splitProps(props, ['face']);
+  const [local, forwardProp] = solidJs.splitProps(props, ['face']);
   const context = solidJs.useContext(SelectorContext);
+  const isImage = () => local.face.url.match(REG_IMAGE);
+  const publicProp = {
+    src: local.face.url,
+    onClick: context?.select.bind(undefined, local.face),
+    onPointerEnter: context?.inspect.bind(undefined, local.face),
+    onPointerOut: context?.inspect.bind(undefined, undefined),
+    get hidden() {
+      return !loaded();
+    },
+    onError: handleError
+  };
   return [web.memo((() => {
     const _c$ = web.memo(() => !!(!loaded() || error()));
     return () => _c$() && web.createComponent(Indicator, web.mergeProps({
@@ -343,68 +371,101 @@ function FaceView(props) {
         return error() ? 'error' : 'pending';
       },
       get alt() {
-        return face.face.descr ?? face.face.id;
+        return local.face.descr ?? local.face.id;
       },
       style: {
         /* ...props.style, */transition: "opacity 2s ease"
       }
     }, forwardProp));
-  })()), (() => {
-    const _el$ = _tmpl$$2.cloneNode(true);
-    web.spread(_el$, web.mergeProps(forwardProp, {
-      get src() {
-        return face.face.url;
-      },
-      get alt() {
-        return face.face.descr ?? face.face.id;
-      },
-      get onClick() {
-        return context?.select.bind(undefined, face.face);
-      },
-      get onPointerEnter() {
-        return context?.inspect.bind(undefined, face.face);
-      },
-      get onPointerOut() {
-        return context?.inspect.bind(undefined, undefined);
-      },
-      "onLoad": handleLoad,
-      "hidden": !loaded,
-      "onError": handleError
+  })()), web.memo((() => {
+    const _c$2 = web.memo(() => !!isImage());
+    return () => _c$2() ? (() => {
+      const _el$ = _tmpl$$2.cloneNode(true);
+      web.spread(_el$, web.mergeProps(() => solidJs.mergeProps(publicProp, forwardProp), {
+        get alt() {
+          return local.face.descr ?? local.face.id;
+        },
+        "onLoad": handleLoad
+      }), false, false);
+      return _el$;
+    })() : web.createComponent(FaceViewVideoAutoPlay, web.mergeProps(() => solidJs.mergeProps(publicProp, forwardProp), {
+      muted: true,
+      loop: true,
+      playsinline: true,
+      onCanPlay: handleLoad
+    }));
+  })())];
+}
+function FaceViewVideoAutoPlay(props) {
+  let ref = undefined;
+  let timer;
+  const [local, forward] = solidJs.splitProps(props, ['onCanPlay']);
+  solidJs.onCleanup(() => {
+    clearTimeout(timer);
+  });
+  return (() => {
+    const _el$2 = _tmpl$2.cloneNode(true);
+    const _ref$ = ref;
+    typeof _ref$ === "function" ? web.use(_ref$, _el$2) : ref = _el$2;
+    web.spread(_el$2, web.mergeProps(forward, {
+      "onCanPlay": e => {
+        if (ref?.paused) {
+          local.onCanPlay(e);
+          timer = requestIdleCallback(() => {
+            if (document.contains(ref)) {
+              ref.play();
+            }
+          }, {
+            timeout: 1000
+          });
+        }
+      }
     }), false, false);
-    return _el$;
-  })()];
+    return _el$2;
+  })();
 }
 
 const _tmpl$$1 = /*#__PURE__*/web.template(`<div></div>`, 2);
-const styleCol = css.css({
-  flex: 1,
+const styleItem = css.css({
   width: "45px",
   height: "45px",
-  padding: "1px 1px 1px 1px"
+  padding: 1
 });
-const styleRow = css.css({
-  flexWrap: "wrap",
+const styleGrid = css.css({
   overflow: "auto",
-  gap: 2
+  minHeight: 0,
+  flex: '1 1 0',
+  textAlign: 'center'
 });
 function FlexboxView(props) {
   return (() => {
     const _el$ = _tmpl$$1.cloneNode(true);
-    web.className(_el$, styleRow);
+    web.className(_el$, styleGrid);
     web.insert(_el$, web.createComponent(solidJs.For, {
       get each() {
         return props.facePackage.faces;
       },
       children: face => web.createComponent(FaceView, {
         face: face,
-        "class": styleCol
+        "class": styleItem
       })
     }));
     return _el$;
   })();
 }
 
-const _tmpl$ = /*#__PURE__*/web.template(`<div></div>`, 2);
+const _tmpl$ = /*#__PURE__*/web.template(`<div><div></div></div>`, 4);
+const main = css.css({
+  padding: '2px',
+  height: mainHeight,
+  width: '100%'
+});
+const styleInner = css.css({
+  height: '100%',
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column'
+});
 /**
  * 创建一个表情包选择器组件
  *
@@ -451,10 +512,12 @@ function createFaceSelector() {
         inspect
       },
       get children() {
-        const _el$ = _tmpl$.cloneNode(true);
+        const _el$ = _tmpl$.cloneNode(true),
+          _el$2 = _el$.firstChild;
         const _ref$ = props.ref;
         typeof _ref$ === "function" ? web.use(_ref$, _el$) : props.ref = _el$;
-        web.insert(_el$, web.createComponent(Tabs, {
+        web.className(_el$2, styleInner);
+        web.insert(_el$2, web.createComponent(Tabs, {
           get facePackages() {
             return props.facePacks;
           },
@@ -463,7 +526,7 @@ function createFaceSelector() {
           },
           onSelect: setPos
         }), null);
-        web.insert(_el$, (() => {
+        web.insert(_el$2, (() => {
           const _c$ = web.memo(() => !!props.loadContent);
           return () => _c$() && web.createComponent(FlexboxView, {
             get facePackage() {
@@ -579,10 +642,10 @@ function deploySelector(facePackages) {
         return face ? face.descr ?? face.id : undefined;
       };
       return web.createComponent(Peak, {
-        get imgUrl() {
+        get src() {
           return inspecting()?.url;
         },
-        get imgCaption() {
+        get descr() {
           return imgCaption();
         },
         anchor: emotionBox,
