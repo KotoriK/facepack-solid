@@ -66,7 +66,7 @@ import { createSignal } from 'solid-js'
             const face = inspecting()
             return face ? (face.descr ?? face.id) : undefined
         }
-        return <Peak imgUrl={inspecting()?.url} imgCaption={imgCaption()} anchor={anchor} show />
+        return <Peak src={inspecting()?.url} descr={imgCaption()} anchor={anchor} show />
     }, peak)
 
 })()
