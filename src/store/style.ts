@@ -1,7 +1,7 @@
 import { createStore } from 'solid-js/store'
 
-import PendingIndicator from '../../static/Ripple-1.3s-237px.svg?raw'
-import ErrorIndicator from '../../static/error.svg?raw'
+import PendingIndicator from '../../static/Ripple-1.3s-237px.svg'
+import ErrorIndicator from '../../static/error.svg'
 
 export interface FaceSelectorStyle {
     svg: {
@@ -13,8 +13,8 @@ export const [styleSetting, setStyleSetting] = createStore<FaceSelectorStyle>({}
 
 export const defaultStyle: FaceSelectorStyle = {
     svg: {
-        pending: 'data:image/svg+xml;utf8,' + PendingIndicator,
-        error: 'data:image/svg+xml;utf8,' + ErrorIndicator,
+        pending: PendingIndicator,
+        error: ErrorIndicator,
     }
 }
 /**
