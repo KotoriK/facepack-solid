@@ -9,7 +9,7 @@ import { css } from '@emotion/css'
 
 const main = css({
     padding: '2px',
-    height: mainHeight,
+    maxHeight: mainHeight,
     width: '100%',
 })
 const styleInner = css({

@@ -1,6 +1,6 @@
 import { css } from "@emotion/css";
 /**
- * 定义主体高度
+ * 定义主体最大高度
  */
 export const mainHeight = 325
 
