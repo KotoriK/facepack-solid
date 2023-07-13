@@ -5,9 +5,10 @@ import path from 'node:path'
 import pkg from './package.json'
 import { visualizer } from 'rollup-plugin-visualizer';
 import dts from 'vite-plugin-dts'
+import devtools from 'solid-devtools/vite'
 
 export default defineConfig({
-  plugins: [dts({ rollupTypes: true }), solidPlugin(), process.env.ANALYZE && visualizer()],
+  plugins: [dts({ rollupTypes: true }), devtools({ autoname: true }), solidPlugin(), process.env.ANALYZE && visualizer()],
   build: {
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),

@@ -6,6 +6,7 @@ import { createFaceSelector } from '../src/selector/components/FaceSelector'
 import { Peak } from '../src/peak'
 import { setStyleSetting, defaultStyle } from '../src'
 import { createSignal } from 'solid-js'
+import 'solid-devtools'
 
 (async () => {
     const commentArea = document.getElementById('comment') as HTMLTextAreaElement
@@ -65,7 +66,7 @@ import { createSignal } from 'solid-js'
             const face = inspecting()
             return face ? (face.descr ?? face.id) : undefined
         }
-        return <Peak src={inspecting()?.url} descr={imgCaption()} anchor={anchor} show />
+        return <Peak src={inspecting()?.url} descr={imgCaption()} anchor={anchor} /* show */ />
     }, peak)
 
 })()
