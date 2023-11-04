@@ -13,6 +13,7 @@ const main = css({
     width: '100%',
 })
 const styleInner = css({
+    minHeight:250,
     height: '100%',
     width: '100%',
     display: 'flex',

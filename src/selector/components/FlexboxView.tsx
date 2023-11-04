@@ -7,7 +7,7 @@ const styleItem = css({
     width: "45px", height: "45px", padding: 1
 })
 const styleGrid = css({
-    overflow: "auto", minHeight: 0, flex: '1 1 0', textAlign: 'center'
+    overflow: "auto", minHeight: 0, flex: '1 1 0', textAlign: 'start',height:300
 })
 
 export interface FlexboxViewProp {
