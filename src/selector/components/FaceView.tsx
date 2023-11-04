@@ -50,27 +50,28 @@ export default function FaceView(props: FaceViewProps) {
                     {...forwardProp}
                 />}
             {isImage() ? <img {...mergeProps(publicProp, forwardProp)} alt={local.face.descr ?? local.face.id} onLoad={handleLoad} /> :
-                <FaceViewVideoAutoPlay {...mergeProps(publicProp, forwardProp)} muted loop playsinline onCanPlay={handleLoad} />
+                <FaceViewVideoAutoPlay {...mergeProps(publicProp, forwardProp)} onCanPlayThrough={handleLoad} />
             }
         </>
     )
 }
 
-function FaceViewVideoAutoPlay(props: JSX.VideoHTMLAttributes<HTMLVideoElement> & { onCanPlay: JSX.EventHandler<HTMLVideoElement, Event> }) {
+function FaceViewVideoAutoPlay(props: JSX.VideoHTMLAttributes<HTMLVideoElement> & { onCanPlayThrough: JSX.EventHandler<HTMLVideoElement, Event> }) {
     let ref: HTMLVideoElement | undefined = undefined
     let timer: number
-    const [local, forward] = splitProps(props, ['onCanPlay'])
+    const [local, forward] = splitProps(props, ['onCanPlayThrough'])
 
-    onCleanup(() => { clearTimeout(timer) })
+    onCleanup(() => { cancelIdleCallback(timer) })
 
-    return <video ref={ref} {...forward} onCanPlay={(e) => {
-        if (ref?.paused) {
-            local.onCanPlay(e)
-            timer = requestIdleCallback(() => {
-                if (document.contains(ref!)) {
+    return <video ref={ref} {...forward}
+        muted loop playsinline
+        onCanPlayThrough={(e) => {
+            if (ref?.paused) {
+                local.onCanPlayThrough(e)
+                timer = requestIdleCallback(() => {
+                    if (!ref?.parentNode) return
                     ref!.play()
-                }
-            }, { timeout: 1000 })
-        }
-    }} />
+                }, { timeout: 2000 })
+            }
+        }} />
 }
