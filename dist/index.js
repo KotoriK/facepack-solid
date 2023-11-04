@@ -1,43 +1,39 @@
-'use strict';
-
-Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-
-const web = require('solid-js/web');
-const css = require('@emotion/css');
-const solidJs = require('solid-js');
-const dom = require('@floating-ui/dom');
-const store = require('solid-js/store');
+import { use, insert, memo, className, effect, setAttribute, style, classList, template, createComponent, spread, mergeProps, render } from 'solid-js/web';
+import { css } from '@emotion/css';
+import { createSignal, onCleanup, createEffect, createSelector, For, createContext, splitProps, useContext, mergeProps as mergeProps$1 } from 'solid-js';
+import { autoUpdate, computePosition, shift, flip } from '@floating-ui/dom';
+import { createStore } from 'solid-js/store';
 
 const mainHeight = 325;
-const borderShadow = css.css({
+const borderShadow = css({
   boxShadow: "2px 2px 15px #888888",
   border: "0.5px #888888 solid",
   zIndex: 999
 });
-const bgWhiteBlur = css.css({
+const bgWhiteBlur = css({
   backgroundColor: "rgba(255,255,255,0.6)",
   backdropFilter: "blur(3px)"
 });
 
 const REG_IMAGE = /\.(jpg|png|gif)$/i;
 
-const _tmpl$$5 = /*#__PURE__*/web.template(`<figure><hr><figcaption></figcaption></figure>`, 5),
-  _tmpl$2$2 = /*#__PURE__*/web.template(`<img>`, 1),
-  _tmpl$3 = /*#__PURE__*/web.template(`<video playsinline loop muted autoplay></video>`, 2);
-const styleFigCaption = css.css({
+const _tmpl$$5 = /*#__PURE__*/template(`<figure><hr><figcaption>`),
+  _tmpl$2$2 = /*#__PURE__*/template(`<img>`),
+  _tmpl$3 = /*#__PURE__*/template(`<video playsinline loop muted autoplay>`);
+const styleFigCaption = css({
   textAlign: "center",
   backgroundColor: 'rgba(255,255,255,0.65)'
 });
-const styleHr = css.css({
+const styleHr = css({
   marginTop: 0,
   marginBottom: 0
 });
-const styleFace = css.css({
+const styleFace = css({
   minWidth: 200,
   height: 200
 });
 function Peak(props) {
-  const [style, setStyle] = solidJs.createSignal({
+  const [style$1, setStyle] = createSignal({
     position: 'absolute',
     top: 0,
     left: 0,
@@ -46,8 +42,8 @@ function Peak(props) {
   });
   let refSelf;
   const updatePosition = async () => {
-    const position = await dom.computePosition(props.anchor, refSelf, {
-      middleware: [dom.shift(), dom.flip()]
+    const position = await computePosition(props.anchor, refSelf, {
+      middleware: [shift(), flip()]
     });
     setStyle(prevStyle => {
       return {
@@ -58,10 +54,10 @@ function Peak(props) {
     });
   };
   let cleanup;
-  solidJs.onCleanup(() => cleanup?.());
-  solidJs.createEffect(async () => {
+  onCleanup(() => cleanup?.());
+  createEffect(async () => {
     if (props.anchor && refSelf) {
-      cleanup = dom.autoUpdate(props.anchor, refSelf, updatePosition);
+      cleanup = autoUpdate(props.anchor, refSelf, updatePosition);
     } else {
       cleanup?.();
       cleanup = undefined;
@@ -70,31 +66,31 @@ function Peak(props) {
   const show = () => Boolean(props.src); /* && props.show */
   const isImage = () => Boolean(props.src?.match(REG_IMAGE));
   return (() => {
-    const _el$ = _tmpl$$5.cloneNode(true),
+    const _el$ = _tmpl$$5(),
       _el$2 = _el$.firstChild,
       _el$3 = _el$2.nextSibling;
     const _ref$ = refSelf;
-    typeof _ref$ === "function" ? web.use(_ref$, _el$) : refSelf = _el$;
-    web.insert(_el$, (() => {
-      const _c$ = web.memo(() => !!isImage());
+    typeof _ref$ === "function" ? use(_ref$, _el$) : refSelf = _el$;
+    insert(_el$, (() => {
+      const _c$ = memo(() => !!isImage());
       return () => _c$() ? (() => {
-        const _el$4 = _tmpl$2$2.cloneNode(true);
-        web.className(_el$4, styleFace);
-        web.effect(() => web.setAttribute(_el$4, "src", props.src));
+        const _el$4 = _tmpl$2$2();
+        className(_el$4, styleFace);
+        effect(() => setAttribute(_el$4, "src", props.src));
         return _el$4;
       })() : (() => {
-        const _el$5 = _tmpl$3.cloneNode(true);
-        web.className(_el$5, styleFace);
-        web.effect(() => web.setAttribute(_el$5, "src", props.src));
+        const _el$5 = _tmpl$3();
+        className(_el$5, styleFace);
+        effect(() => setAttribute(_el$5, "src", props.src));
         return _el$5;
       })();
     })(), _el$2);
-    web.className(_el$2, styleHr);
-    web.insert(_el$3, () => props.descr);
-    web.effect(_p$ => {
+    className(_el$2, styleHr);
+    insert(_el$3, () => props.descr);
+    effect(_p$ => {
       const _v$ = {
           display: show() ? 'block' : 'none',
-          /*  ...props.style */...style()
+          /*  ...props.style */...style$1()
         },
         _v$2 = {
           ...(props.class ? {
@@ -107,9 +103,9 @@ function Peak(props) {
           [styleFigCaption]: true,
           [bgWhiteBlur]: true
         };
-      _p$._v$ = web.style(_el$, _v$, _p$._v$);
-      _p$._v$2 = web.classList(_el$, _v$2, _p$._v$2);
-      _p$._v$3 = web.classList(_el$3, _v$3, _p$._v$3);
+      _p$._v$ = style(_el$, _v$, _p$._v$);
+      _p$._v$2 = classList(_el$, _v$2, _p$._v$2);
+      _p$._v$3 = classList(_el$3, _v$3, _p$._v$3);
       return _p$;
     }, {
       _v$: undefined,
@@ -218,8 +214,8 @@ function createFaceRenderer({
   };
 }
 
-const _tmpl$$4 = /*#__PURE__*/web.template(`<option></option>`, 2),
-  _tmpl$2$1 = /*#__PURE__*/web.template(`<select></select>`, 2);
+const _tmpl$$4 = /*#__PURE__*/template(`<option>`),
+  _tmpl$2$1 = /*#__PURE__*/template(`<select>`);
 /**
  *选项卡的单个标签
  *
@@ -230,26 +226,26 @@ const _tmpl$$4 = /*#__PURE__*/web.template(`<option></option>`, 2),
  */
 function Tab(props) {
   return (() => {
-    const _el$ = _tmpl$$4.cloneNode(true);
-    web.insert(_el$, () => props.name);
-    web.effect(_p$ => {
+    const _el$ = _tmpl$$4();
+    insert(_el$, () => props.name);
+    effect(_p$ => {
       const _v$ = props.selected,
         _v$2 = props.style,
         _v$3 = props.class;
       _v$ !== _p$._v$ && (_el$.selected = _p$._v$ = _v$);
-      _p$._v$2 = web.style(_el$, _v$2, _p$._v$2);
-      _v$3 !== _p$._v$3 && web.className(_el$, _p$._v$3 = _v$3);
+      _p$._v$2 = style(_el$, _v$2, _p$._v$2);
+      _v$3 !== _p$._v$3 && className(_el$, _p$._v$3 = _v$3);
       return _p$;
     }, {
       _v$: undefined,
       _v$2: undefined,
       _v$3: undefined
     });
-    web.effect(() => _el$.value = props.pos);
+    effect(() => _el$.value = props.pos);
     return _el$;
   })();
 }
-const styles = css.css({
+const styles = css({
   width: "100%",
   border: 0,
   fontWeight: 'bold'
@@ -260,17 +256,17 @@ const styles = css.css({
  * @author KotoriK
  */
 function Tabs(props) {
-  const isSelected = solidJs.createSelector(() => props.selectedPos);
+  const isSelected = createSelector(() => props.selectedPos);
   return (() => {
-    const _el$2 = _tmpl$2$1.cloneNode(true);
+    const _el$2 = _tmpl$2$1();
     _el$2.addEventListener("change", e => props.onSelect(parseInt(e.currentTarget.value)));
     const _ref$ = props.ref;
-    typeof _ref$ === "function" ? web.use(_ref$, _el$2) : props.ref = _el$2;
-    web.insert(_el$2, web.createComponent(solidJs.For, {
+    typeof _ref$ === "function" ? use(_ref$, _el$2) : props.ref = _el$2;
+    insert(_el$2, createComponent(For, {
       get each() {
         return props.facePackages;
       },
-      children: (item, index) => web.createComponent(Tab, {
+      children: (item, index) => createComponent(Tab, {
         get pos() {
           return index();
         },
@@ -282,7 +278,7 @@ function Tabs(props) {
         }
       })
     }));
-    web.effect(_$p => web.classList(_el$2, {
+    effect(_$p => classList(_el$2, {
       [styles]: true,
       [bgWhiteBlur]: true
     }, _$p));
@@ -290,13 +286,13 @@ function Tabs(props) {
   })();
 }
 
-const SelectorContext = solidJs.createContext();
+const SelectorContext = createContext();
 
 const PendingIndicator = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHN0eWxlPSJtYXJnaW46IGF1dG87IGJhY2tncm91bmQ6IG5vbmU7IGRpc3BsYXk6IGJsb2NrOyBzaGFwZS1yZW5kZXJpbmc6IGF1dG87IiB3aWR0aD0iMjM3cHgiIGhlaWdodD0iMjM3cHgiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkuNDk5NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODVhMmI2IiBzdHJva2Utd2lkdGg9IjMiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMDs0MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMCAwLjIgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiIGJlZ2luPSItMC42NDkzNTA2NDkzNTA2NDkzcyI+PC9hbmltYXRlPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9Im9wYWNpdHkiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMTswIiBrZXlUaW1lcz0iMDsxIiBrZXlTcGxpbmVzPSIwLjIgMCAwLjggMSIgY2FsY01vZGU9InNwbGluZSIgYmVnaW49Ii0wLjY0OTM1MDY0OTM1MDY0OTNzIj48L2FuaW1hdGU+PC9jaXJjbGU+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjMuODUzMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYmJjZWRkIiBzdHJva2Utd2lkdGg9IjMiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMDs0MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMCAwLjIgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiPjwvYW5pbWF0ZT48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgZHVyPSIxLjI5ODcwMTI5ODcwMTI5ODdzIiB2YWx1ZXM9IjE7MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMC4yIDAgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiPjwvYW5pbWF0ZT48L2NpcmNsZT48IS0tIFtsZGlvXSBnZW5lcmF0ZWQgYnkgaHR0cHM6Ly9sb2FkaW5nLmlvLyAtLT48L3N2Zz4=";
 
 const ErrorIndicator = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTkyMjA4MTM2OTkwIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjMzOTAiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNTEyIDEwMDAuNzI3MjczYTQ4OC43MjcyNzMgNDg4LjcyNzI3MyAwIDEgMSA0ODguNzI3MjczLTQ4OC43MjcyNzMgNDg4LjcyNzI3MyA0ODguNzI3MjczIDAgMCAxLTQ4OC43MjcyNzMgNDg4LjcyNzI3M3ogbTAtOTE5LjI3MjcyOGE0MzAuNTQ1NDU1IDQzMC41NDU0NTUgMCAxIDAgNDMwLjU0NTQ1NSA0MzAuNTQ1NDU1QTQzMC41NDU0NTUgNDMwLjU0NTQ1NSAwIDAgMCA1MTIgODEuNDU0NTQ1eiIgZmlsbD0iIiBwLWlkPSIzMzkxIj48L3BhdGg+PHBhdGggZD0iTTcyMS40NTQ1NDUgNzUwLjU0NTQ1NWEyOC45NzQ1NDUgMjguOTc0NTQ1IDAgMCAxLTIwLjU5NjM2My04LjQ5NDU0NkwyODEuNiAzMjIuNDQzNjM2YTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNDEuMTkyNzI3LTQxLjE5MjcyN0w3NDIuNCA3MDAuODU4MTgyQTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNzIxLjQ1NDU0NSA3NTAuNTQ1NDU1eiIgZmlsbD0iIiBwLWlkPSIzMzkyIj48L3BhdGg+PHBhdGggZD0iTTMwMi41NDU0NTUgNzUwLjU0NTQ1NWEyOS4wOTA5MDkgMjkuMDkwOTA5IDAgMCAxLTIwLjU5NjM2NC00OS42ODcyNzNsNDE5LjI1ODE4Mi00MTkuNjA3MjczYTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNDEuMTkyNzI3IDQxLjE5MjcyN0wzMjIuNzkyNzI3IDc0Mi4wNTA5MDlhMjguOTc0NTQ1IDI4Ljk3NDU0NSAwIDAgMS0yMC4yNDcyNzIgOC40OTQ1NDZ6IiBmaWxsPSIiIHAtaWQ9IjMzOTMiPjwvcGF0aD48L3N2Zz4=";
 
-const [styleSetting, setStyleSetting] = store.createStore({});
+const [styleSetting, setStyleSetting] = createStore({});
 const defaultStyle = {
   svg: {
     pending: PendingIndicator,
@@ -310,7 +306,7 @@ const defaultStyleJSDelivr = {
   }
 };
 
-const _tmpl$$3 = /*#__PURE__*/web.template(`<img>`, 1);
+const _tmpl$$3 = /*#__PURE__*/template(`<img>`);
 /**
  *一个指示错误的组件
  *
@@ -323,10 +319,10 @@ const _tmpl$$3 = /*#__PURE__*/web.template(`<img>`, 1);
 function Indicator(prop) {
   const [{
     level
-  }, otherProp] = solidJs.splitProps(prop, ['level']);
+  }, otherProp] = splitProps(prop, ['level']);
   return (() => {
-    const _el$ = _tmpl$$3.cloneNode(true);
-    web.spread(_el$, web.mergeProps({
+    const _el$ = _tmpl$$3();
+    spread(_el$, mergeProps({
       get src() {
         return styleSetting.svg[level];
       }
@@ -335,8 +331,8 @@ function Indicator(prop) {
   })();
 }
 
-const _tmpl$$2 = /*#__PURE__*/web.template(`<img>`, 1),
-  _tmpl$2 = /*#__PURE__*/web.template(`<video></video>`, 2);
+const _tmpl$$2 = /*#__PURE__*/template(`<img>`),
+  _tmpl$2 = /*#__PURE__*/template(`<video>`);
 /**
  * 表情的渲染
  *
@@ -345,8 +341,8 @@ const _tmpl$$2 = /*#__PURE__*/web.template(`<img>`, 1),
  * @returns
  */
 function FaceView(props) {
-  const [loaded, setLoaded] = solidJs.createSignal(false);
-  const [error, setError] = solidJs.createSignal(false);
+  const [loaded, setLoaded] = createSignal(false);
+  const [error, setError] = createSignal(false);
   const handleError = () => {
     setLoaded(false);
     setError(true);
@@ -355,8 +351,8 @@ function FaceView(props) {
     setLoaded(true);
     setError(false);
   };
-  const [local, forwardProp] = solidJs.splitProps(props, ['face']);
-  const context = solidJs.useContext(SelectorContext);
+  const [local, forwardProp] = splitProps(props, ['face']);
+  const context = useContext(SelectorContext);
   const isImage = () => local.face.url.match(REG_IMAGE);
   const publicProp = {
     src: local.face.url,
@@ -368,9 +364,9 @@ function FaceView(props) {
     },
     onError: handleError
   };
-  return [web.memo((() => {
-    const _c$ = web.memo(() => !!(!loaded() || error()));
-    return () => _c$() && web.createComponent(Indicator, web.mergeProps({
+  return [memo((() => {
+    const _c$ = memo(() => !!(!loaded() || error()));
+    return () => _c$() && createComponent(Indicator, mergeProps({
       get level() {
         return error() ? 'error' : 'pending';
       },
@@ -381,46 +377,45 @@ function FaceView(props) {
         /* ...props.style, */transition: "opacity 2s ease"
       }
     }, forwardProp));
-  })()), web.memo((() => {
-    const _c$2 = web.memo(() => !!isImage());
+  })()), memo((() => {
+    const _c$2 = memo(() => !!isImage());
     return () => _c$2() ? (() => {
-      const _el$ = _tmpl$$2.cloneNode(true);
-      web.spread(_el$, web.mergeProps(() => solidJs.mergeProps(publicProp, forwardProp), {
+      const _el$ = _tmpl$$2();
+      spread(_el$, mergeProps(() => mergeProps$1(publicProp, forwardProp), {
         get alt() {
           return local.face.descr ?? local.face.id;
         },
         "onLoad": handleLoad
       }), false, false);
       return _el$;
-    })() : web.createComponent(FaceViewVideoAutoPlay, web.mergeProps(() => solidJs.mergeProps(publicProp, forwardProp), {
-      muted: true,
-      loop: true,
-      playsinline: true,
-      onCanPlay: handleLoad
+    })() : createComponent(FaceViewVideoAutoPlay, mergeProps(() => mergeProps$1(publicProp, forwardProp), {
+      onCanPlayThrough: handleLoad
     }));
   })())];
 }
 function FaceViewVideoAutoPlay(props) {
   let ref = undefined;
   let timer;
-  const [local, forward] = solidJs.splitProps(props, ['onCanPlay']);
-  solidJs.onCleanup(() => {
-    clearTimeout(timer);
+  const [local, forward] = splitProps(props, ['onCanPlayThrough']);
+  onCleanup(() => {
+    cancelIdleCallback(timer);
   });
   return (() => {
-    const _el$2 = _tmpl$2.cloneNode(true);
+    const _el$2 = _tmpl$2();
     const _ref$ = ref;
-    typeof _ref$ === "function" ? web.use(_ref$, _el$2) : ref = _el$2;
-    web.spread(_el$2, web.mergeProps(forward, {
-      "onCanPlay": e => {
+    typeof _ref$ === "function" ? use(_ref$, _el$2) : ref = _el$2;
+    spread(_el$2, mergeProps(forward, {
+      "muted": true,
+      "loop": true,
+      "playsinline": true,
+      "onCanPlayThrough": e => {
         if (ref?.paused) {
-          local.onCanPlay(e);
+          local.onCanPlayThrough(e);
           timer = requestIdleCallback(() => {
-            if (document.contains(ref)) {
-              ref.play();
-            }
+            if (!ref?.parentNode) return;
+            ref.play();
           }, {
-            timeout: 1000
+            timeout: 2000
           });
         }
       }
@@ -429,27 +424,28 @@ function FaceViewVideoAutoPlay(props) {
   })();
 }
 
-const _tmpl$$1 = /*#__PURE__*/web.template(`<div></div>`, 2);
-const styleItem = css.css({
+const _tmpl$$1 = /*#__PURE__*/template(`<div>`);
+const styleItem = css({
   width: "45px",
   height: "45px",
   padding: 1
 });
-const styleGrid = css.css({
+const styleGrid = css({
   overflow: "auto",
   minHeight: 0,
   flex: '1 1 0',
-  textAlign: 'center'
+  textAlign: 'start',
+  height: 300
 });
 function FlexboxView(props) {
   return (() => {
-    const _el$ = _tmpl$$1.cloneNode(true);
-    web.className(_el$, styleGrid);
-    web.insert(_el$, web.createComponent(solidJs.For, {
+    const _el$ = _tmpl$$1();
+    className(_el$, styleGrid);
+    insert(_el$, createComponent(For, {
       get each() {
         return props.facePackage.faces;
       },
-      children: face => web.createComponent(FaceView, {
+      children: face => createComponent(FaceView, {
         face: face,
         "class": styleItem
       })
@@ -458,13 +454,14 @@ function FlexboxView(props) {
   })();
 }
 
-const _tmpl$ = /*#__PURE__*/web.template(`<div><div></div></div>`, 4);
-const main = css.css({
+const _tmpl$ = /*#__PURE__*/template(`<div><div>`);
+const main = css({
   padding: '2px',
   maxHeight: mainHeight,
   width: '100%'
 });
-const styleInner = css.css({
+const styleInner = css({
+  minHeight: 250,
   height: '100%',
   width: '100%',
   display: 'flex',
@@ -477,7 +474,7 @@ const styleInner = css.css({
  * @returns 一个selectorState，和一个FaceSelector组件
  */
 function createFaceSelector() {
-  const [inspecting, inspect] = solidJs.createSignal();
+  const [inspecting, inspect] = createSignal();
   return [{
     inspecting
   },
@@ -490,7 +487,7 @@ function createFaceSelector() {
    * @returns
    */
   function FaceSelector(props) {
-    const [_nowPackagePos, setPos] = solidJs.createSignal(0);
+    const [_nowPackagePos, setPos] = createSignal(0);
 
     /*     const head = useRef<HTMLSelectElement>()
         const body = useRef<HTMLDivElement>() */
@@ -510,18 +507,18 @@ function createFaceSelector() {
       if (_now > maxPos) return maxPos; //防止prop发生改动带来越界
       return _now;
     };
-    return web.createComponent(SelectorContext.Provider, {
+    return createComponent(SelectorContext.Provider, {
       value: {
         select: face => props.onSelect(props.facePacks[nowPackagePos()], face),
         inspect
       },
       get children() {
-        const _el$ = _tmpl$.cloneNode(true),
+        const _el$ = _tmpl$(),
           _el$2 = _el$.firstChild;
         const _ref$ = props.ref;
-        typeof _ref$ === "function" ? web.use(_ref$, _el$) : props.ref = _el$;
-        web.className(_el$2, styleInner);
-        web.insert(_el$2, web.createComponent(Tabs, {
+        typeof _ref$ === "function" ? use(_ref$, _el$) : props.ref = _el$;
+        className(_el$2, styleInner);
+        insert(_el$2, createComponent(Tabs, {
           get facePackages() {
             return props.facePacks;
           },
@@ -530,15 +527,15 @@ function createFaceSelector() {
           },
           onSelect: setPos
         }), null);
-        web.insert(_el$2, (() => {
-          const _c$ = web.memo(() => !!props.loadContent);
-          return () => _c$() && web.createComponent(FlexboxView, {
+        insert(_el$2, (() => {
+          const _c$ = memo(() => !!props.loadContent);
+          return () => _c$() && createComponent(FlexboxView, {
             get facePackage() {
               return props.facePacks[nowPackagePos()];
             }
           });
         })(), null);
-        web.effect(_p$ => {
+        effect(_p$ => {
           const _v$ = props.class ? {
               [props.class]: true
             } : {
@@ -547,8 +544,8 @@ function createFaceSelector() {
               [main]: true
             },
             _v$2 = props.style;
-          _p$._v$ = web.classList(_el$, _v$, _p$._v$);
-          _p$._v$2 = web.style(_el$, _v$2, _p$._v$2);
+          _p$._v$ = classList(_el$, _v$, _p$._v$);
+          _p$._v$2 = style(_el$, _v$2, _p$._v$2);
           return _p$;
         }, {
           _v$: undefined,
@@ -616,9 +613,9 @@ function deploySelector(facePackages) {
     const [{
       inspecting
     }, FaceSelector] = createFaceSelector();
-    const [hide, setHide] = solidJs.createSignal(true);
-    const [loadContent, setLoadContent] = solidJs.createSignal(false);
-    web.render(() => web.createComponent(FaceSelector, {
+    const [hide, setHide] = createSignal(true);
+    const [loadContent, setLoadContent] = createSignal(false);
+    render(() => createComponent(FaceSelector, {
       facePacks: facePackages,
       get loadContent() {
         return loadContent();
@@ -640,12 +637,12 @@ function deploySelector(facePackages) {
     // init Peak
     const peak = document.createElement('div');
     document.body.append(peak);
-    web.render(() => {
+    render(() => {
       const imgCaption = () => {
         const face = inspecting();
         return face ? face.descr ?? face.id : undefined;
       };
-      return web.createComponent(Peak, {
+      return createComponent(Peak, {
         get src() {
           return inspecting()?.url;
         },
@@ -658,16 +655,5 @@ function deploySelector(facePackages) {
   }
 }
 
-exports.Peak = Peak;
-exports.createFaceRenderer = createFaceRenderer;
-exports.createFaceSelector = createFaceSelector;
-exports.defaultStyle = defaultStyle;
-exports.defaultStyleJSDelivr = defaultStyleJSDelivr;
-exports.deployRenderer = deployRenderer;
-exports.deploySelector = deploySelector;
-exports.getFaceFullUrl = getFaceFullUrl;
-exports.importExternalFacePacks = importExternalFacePacks;
-exports.preprocessFacePack = preprocessFacePack;
-exports.setStyleSetting = setStyleSetting;
-exports.styleSetting = styleSetting;
+export { Peak, createFaceRenderer, createFaceSelector, defaultStyle, defaultStyleJSDelivr, deployRenderer, deploySelector, getFaceFullUrl, importExternalFacePacks, preprocessFacePack, setStyleSetting, styleSetting };
 //# sourceMappingURL=index.js.map

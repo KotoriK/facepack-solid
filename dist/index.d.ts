@@ -1,6 +1,6 @@
 import { Accessor } from 'solid-js';
 import { JSX } from 'solid-js';
-import type { SetStoreFunction } from 'solid-js/store';
+import { SetStoreFunction } from 'solid-js/store';
 
 /**
  * 创建渲染器
