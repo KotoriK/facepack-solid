@@ -34,20 +34,20 @@
   ],
   "license": "GPL-3.0-or-later",
   "devDependencies": {
-    "@babel/core": "^7.23.2",
-    "babel-preset-solid": "^1.8.4",
+    "@babel/core": "^7.23.7",
+    "babel-preset-solid": "^1.8.12",
     "cross-env": "^7.0.3",
-    "rollup-plugin-visualizer": "^5.9.2",
-    "solid-devtools": "^0.28.1",
-    "typescript": "^5.2.2",
-    "vite": "^4.5.0",
-    "vite-plugin-dts": "^3.6.3",
-    "vite-plugin-solid": "^2.7.2"
+    "rollup-plugin-visualizer": "^5.12.0",
+    "solid-devtools": "^0.29.3",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.12",
+    "vite-plugin-dts": "^3.7.2",
+    "vite-plugin-solid": "^2.9.1"
   },
   "dependencies": {
     "@emotion/css": "^11.11.2",
-    "@floating-ui/dom": "^1.5.3",
-    "solid-js": "^1.8.5"
+    "@floating-ui/dom": "^1.5.4",
+    "solid-js": "^1.8.12"
   },
   "peerDependencies": {
     "@emotion/css": "^11",
