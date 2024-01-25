@@ -1,7 +1,7 @@
 import { use, insert, memo, className, effect, setAttribute, style, classList, template, createComponent, spread, mergeProps, render } from 'solid-js/web';
 import { css } from '@emotion/css';
 import { createSignal, onCleanup, createEffect, createSelector, For, createContext, splitProps, useContext, mergeProps as mergeProps$1 } from 'solid-js';
-import { autoUpdate, computePosition, shift, flip } from '@floating-ui/dom';
+import { autoUpdate, computePosition } from '@floating-ui/dom';
 import { createStore } from 'solid-js/store';
 
 const mainHeight = 325;
@@ -17,12 +17,10 @@ const bgWhiteBlur = css({
 
 const REG_IMAGE = /\.(jpg|png|gif)$/i;
 
-const _tmpl$$5 = /*#__PURE__*/template(`<figure><hr><figcaption>`),
-  _tmpl$2$2 = /*#__PURE__*/template(`<img>`),
-  _tmpl$3 = /*#__PURE__*/template(`<video playsinline loop muted autoplay>`);
+var _tmpl$$5 = /* @__PURE__ */ template(`<figure><hr><figcaption>`), _tmpl$2$2 = /* @__PURE__ */ template(`<img>`), _tmpl$3 = /* @__PURE__ */ template(`<video playsinline loop muted autoplay>`);
 const styleFigCaption = css({
   textAlign: "center",
-  backgroundColor: 'rgba(255,255,255,0.65)'
+  backgroundColor: "rgba(255,255,255,0.65)"
 });
 const styleHr = css({
   marginTop: 0,
@@ -34,18 +32,18 @@ const styleFace = css({
 });
 function Peak(props) {
   const [style$1, setStyle] = createSignal({
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
-    width: 'max-content',
-    "min-width": 'auto'
+    width: "max-content",
+    "min-width": "auto"
   });
   let refSelf;
   const updatePosition = async () => {
     const position = await computePosition(props.anchor, refSelf, {
-      middleware: [shift(), flip()]
+      placement: "right-start"
     });
-    setStyle(prevStyle => {
+    setStyle((prevStyle) => {
       return {
         ...prevStyle,
         left: `${position.x}px`,
@@ -60,26 +58,24 @@ function Peak(props) {
       cleanup = autoUpdate(props.anchor, refSelf, updatePosition);
     } else {
       cleanup?.();
-      cleanup = undefined;
+      cleanup = void 0;
     }
   });
-  const show = () => Boolean(props.src); /* && props.show */
+  const show = () => Boolean(props.src);
   const isImage = () => Boolean(props.src?.match(REG_IMAGE));
   return (() => {
-    const _el$ = _tmpl$$5(),
-      _el$2 = _el$.firstChild,
-      _el$3 = _el$2.nextSibling;
-    const _ref$ = refSelf;
+    var _el$ = _tmpl$$5(), _el$2 = _el$.firstChild, _el$3 = _el$2.nextSibling;
+    var _ref$ = refSelf;
     typeof _ref$ === "function" ? use(_ref$, _el$) : refSelf = _el$;
     insert(_el$, (() => {
-      const _c$ = memo(() => !!isImage());
+      var _c$ = memo(() => !!isImage());
       return () => _c$() ? (() => {
-        const _el$4 = _tmpl$2$2();
+        var _el$4 = _tmpl$2$2();
         className(_el$4, styleFace);
         effect(() => setAttribute(_el$4, "src", props.src));
         return _el$4;
       })() : (() => {
-        const _el$5 = _tmpl$3();
+        var _el$5 = _tmpl$3();
         className(_el$5, styleFace);
         effect(() => setAttribute(_el$5, "src", props.src));
         return _el$5;
@@ -87,30 +83,29 @@ function Peak(props) {
     })(), _el$2);
     className(_el$2, styleHr);
     insert(_el$3, () => props.descr);
-    effect(_p$ => {
-      const _v$ = {
-          display: show() ? 'block' : 'none',
-          /*  ...props.style */...style$1()
-        },
-        _v$2 = {
-          ...(props.class ? {
-            [props.class]: true
-          } : {}),
-          [borderShadow]: true,
-          [bgWhiteBlur]: true
-        },
-        _v$3 = {
-          [styleFigCaption]: true,
-          [bgWhiteBlur]: true
-        };
-      _p$._v$ = style(_el$, _v$, _p$._v$);
-      _p$._v$2 = classList(_el$, _v$2, _p$._v$2);
-      _p$._v$3 = classList(_el$3, _v$3, _p$._v$3);
+    effect((_p$) => {
+      var _v$ = {
+        display: show() ? "block" : "none",
+        /*  ...props.style */
+        ...style$1()
+      }, _v$2 = {
+        ...props.class ? {
+          [props.class]: true
+        } : {},
+        [borderShadow]: true,
+        [bgWhiteBlur]: true
+      }, _v$3 = {
+        [styleFigCaption]: true,
+        [bgWhiteBlur]: true
+      };
+      _p$.e = style(_el$, _v$, _p$.e);
+      _p$.t = classList(_el$, _v$2, _p$.t);
+      _p$.a = classList(_el$3, _v$3, _p$.a);
       return _p$;
     }, {
-      _v$: undefined,
-      _v$2: undefined,
-      _v$3: undefined
+      e: void 0,
+      t: void 0,
+      a: void 0
     });
     return _el$;
   })();
@@ -214,32 +209,21 @@ function createFaceRenderer({
   };
 }
 
-const _tmpl$$4 = /*#__PURE__*/template(`<option>`),
-  _tmpl$2$1 = /*#__PURE__*/template(`<select>`);
-/**
- *选项卡的单个标签
- *
- * @author KotoriK
- * @export
- * @param {TabProps} props
- * @returns
- */
+var _tmpl$$4 = /* @__PURE__ */ template(`<option>`), _tmpl$2$1 = /* @__PURE__ */ template(`<select>`);
 function Tab(props) {
   return (() => {
-    const _el$ = _tmpl$$4();
+    var _el$ = _tmpl$$4();
     insert(_el$, () => props.name);
-    effect(_p$ => {
-      const _v$ = props.selected,
-        _v$2 = props.style,
-        _v$3 = props.class;
-      _v$ !== _p$._v$ && (_el$.selected = _p$._v$ = _v$);
-      _p$._v$2 = style(_el$, _v$2, _p$._v$2);
-      _v$3 !== _p$._v$3 && className(_el$, _p$._v$3 = _v$3);
+    effect((_p$) => {
+      var _v$ = props.selected, _v$2 = props.style, _v$3 = props.class;
+      _v$ !== _p$.e && (_el$.selected = _p$.e = _v$);
+      _p$.t = style(_el$, _v$2, _p$.t);
+      _v$3 !== _p$.a && className(_el$, _p$.a = _v$3);
       return _p$;
     }, {
-      _v$: undefined,
-      _v$2: undefined,
-      _v$3: undefined
+      e: void 0,
+      t: void 0,
+      a: void 0
     });
     effect(() => _el$.value = props.pos);
     return _el$;
@@ -248,19 +232,14 @@ function Tab(props) {
 const styles = css({
   width: "100%",
   border: 0,
-  fontWeight: 'bold'
+  fontWeight: "bold"
 });
-/**
- * 选项卡的一行标签（一行Tab
- *
- * @author KotoriK
- */
 function Tabs(props) {
   const isSelected = createSelector(() => props.selectedPos);
   return (() => {
-    const _el$2 = _tmpl$2$1();
-    _el$2.addEventListener("change", e => props.onSelect(parseInt(e.currentTarget.value)));
-    const _ref$ = props.ref;
+    var _el$2 = _tmpl$2$1();
+    _el$2.addEventListener("change", (e) => props.onSelect(parseInt(e.currentTarget.value)));
+    var _ref$ = props.ref;
     typeof _ref$ === "function" ? use(_ref$, _el$2) : props.ref = _el$2;
     insert(_el$2, createComponent(For, {
       get each() {
@@ -278,7 +257,7 @@ function Tabs(props) {
         }
       })
     }));
-    effect(_$p => classList(_el$2, {
+    effect((_$p) => classList(_el$2, {
       [styles]: true,
       [bgWhiteBlur]: true
     }, _$p));
@@ -288,9 +267,9 @@ function Tabs(props) {
 
 const SelectorContext = createContext();
 
-const PendingIndicator = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHN0eWxlPSJtYXJnaW46IGF1dG87IGJhY2tncm91bmQ6IG5vbmU7IGRpc3BsYXk6IGJsb2NrOyBzaGFwZS1yZW5kZXJpbmc6IGF1dG87IiB3aWR0aD0iMjM3cHgiIGhlaWdodD0iMjM3cHgiIHZpZXdCb3g9IjAgMCAxMDAgMTAwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCI+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMzkuNDk5NiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjODVhMmI2IiBzdHJva2Utd2lkdGg9IjMiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMDs0MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMCAwLjIgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiIGJlZ2luPSItMC42NDkzNTA2NDkzNTA2NDkzcyI+PC9hbmltYXRlPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9Im9wYWNpdHkiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMTswIiBrZXlUaW1lcz0iMDsxIiBrZXlTcGxpbmVzPSIwLjIgMCAwLjggMSIgY2FsY01vZGU9InNwbGluZSIgYmVnaW49Ii0wLjY0OTM1MDY0OTM1MDY0OTNzIj48L2FuaW1hdGU+PC9jaXJjbGU+PGNpcmNsZSBjeD0iNTAiIGN5PSI1MCIgcj0iMjMuODUzMSIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYmJjZWRkIiBzdHJva2Utd2lkdGg9IjMiPjxhbmltYXRlIGF0dHJpYnV0ZU5hbWU9InIiIHJlcGVhdENvdW50PSJpbmRlZmluaXRlIiBkdXI9IjEuMjk4NzAxMjk4NzAxMjk4N3MiIHZhbHVlcz0iMDs0MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMCAwLjIgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiPjwvYW5pbWF0ZT48YW5pbWF0ZSBhdHRyaWJ1dGVOYW1lPSJvcGFjaXR5IiByZXBlYXRDb3VudD0iaW5kZWZpbml0ZSIgZHVyPSIxLjI5ODcwMTI5ODcwMTI5ODdzIiB2YWx1ZXM9IjE7MCIga2V5VGltZXM9IjA7MSIga2V5U3BsaW5lcz0iMC4yIDAgMC44IDEiIGNhbGNNb2RlPSJzcGxpbmUiPjwvYW5pbWF0ZT48L2NpcmNsZT48IS0tIFtsZGlvXSBnZW5lcmF0ZWQgYnkgaHR0cHM6Ly9sb2FkaW5nLmlvLyAtLT48L3N2Zz4=";
+const PendingIndicator = "data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3csvg%20xmlns='http://www.w3.org/2000/svg'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20style='margin:%20auto;%20background:%20none;%20display:%20block;%20shape-rendering:%20auto;'%20width='237px'%20height='237px'%20viewBox='0%200%20100%20100'%20preserveAspectRatio='xMidYMid'%3e%3ccircle%20cx='50'%20cy='50'%20r='39.4996'%20fill='none'%20stroke='%2385a2b6'%20stroke-width='3'%3e%3canimate%20attributeName='r'%20repeatCount='indefinite'%20dur='1.2987012987012987s'%20values='0;40'%20keyTimes='0;1'%20keySplines='0%200.2%200.8%201'%20calcMode='spline'%20begin='-0.6493506493506493s'%3e%3c/animate%3e%3canimate%20attributeName='opacity'%20repeatCount='indefinite'%20dur='1.2987012987012987s'%20values='1;0'%20keyTimes='0;1'%20keySplines='0.2%200%200.8%201'%20calcMode='spline'%20begin='-0.6493506493506493s'%3e%3c/animate%3e%3c/circle%3e%3ccircle%20cx='50'%20cy='50'%20r='23.8531'%20fill='none'%20stroke='%23bbcedd'%20stroke-width='3'%3e%3canimate%20attributeName='r'%20repeatCount='indefinite'%20dur='1.2987012987012987s'%20values='0;40'%20keyTimes='0;1'%20keySplines='0%200.2%200.8%201'%20calcMode='spline'%3e%3c/animate%3e%3canimate%20attributeName='opacity'%20repeatCount='indefinite'%20dur='1.2987012987012987s'%20values='1;0'%20keyTimes='0;1'%20keySplines='0.2%200%200.8%201'%20calcMode='spline'%3e%3c/animate%3e%3c/circle%3e%3c!--%20[ldio]%20generated%20by%20https://loading.io/%20--%3e%3c/svg%3e";
 
-const ErrorIndicator = "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTkyMjA4MTM2OTkwIiBjbGFzcz0iaWNvbiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjMzOTAiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNTEyIDEwMDAuNzI3MjczYTQ4OC43MjcyNzMgNDg4LjcyNzI3MyAwIDEgMSA0ODguNzI3MjczLTQ4OC43MjcyNzMgNDg4LjcyNzI3MyA0ODguNzI3MjczIDAgMCAxLTQ4OC43MjcyNzMgNDg4LjcyNzI3M3ogbTAtOTE5LjI3MjcyOGE0MzAuNTQ1NDU1IDQzMC41NDU0NTUgMCAxIDAgNDMwLjU0NTQ1NSA0MzAuNTQ1NDU1QTQzMC41NDU0NTUgNDMwLjU0NTQ1NSAwIDAgMCA1MTIgODEuNDU0NTQ1eiIgZmlsbD0iIiBwLWlkPSIzMzkxIj48L3BhdGg+PHBhdGggZD0iTTcyMS40NTQ1NDUgNzUwLjU0NTQ1NWEyOC45NzQ1NDUgMjguOTc0NTQ1IDAgMCAxLTIwLjU5NjM2My04LjQ5NDU0NkwyODEuNiAzMjIuNDQzNjM2YTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNDEuMTkyNzI3LTQxLjE5MjcyN0w3NDIuNCA3MDAuODU4MTgyQTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNzIxLjQ1NDU0NSA3NTAuNTQ1NDU1eiIgZmlsbD0iIiBwLWlkPSIzMzkyIj48L3BhdGg+PHBhdGggZD0iTTMwMi41NDU0NTUgNzUwLjU0NTQ1NWEyOS4wOTA5MDkgMjkuMDkwOTA5IDAgMCAxLTIwLjU5NjM2NC00OS42ODcyNzNsNDE5LjI1ODE4Mi00MTkuNjA3MjczYTI5LjA5MDkwOSAyOS4wOTA5MDkgMCAwIDEgNDEuMTkyNzI3IDQxLjE5MjcyN0wzMjIuNzkyNzI3IDc0Mi4wNTA5MDlhMjguOTc0NTQ1IDI4Ljk3NDU0NSAwIDAgMS0yMC4yNDcyNzIgOC40OTQ1NDZ6IiBmaWxsPSIiIHAtaWQ9IjMzOTMiPjwvcGF0aD48L3N2Zz4=";
+const ErrorIndicator = "data:image/svg+xml,%3c?xml%20version='1.0'%20standalone='no'?%3e%3c!DOCTYPE%20svg%20PUBLIC%20'-//W3C//DTD%20SVG%201.1//EN'%20'http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd'%3e%3csvg%20t='1592208136990'%20class='icon'%20viewBox='0%200%201024%201024'%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'%20p-id='3390'%20xmlns:xlink='http://www.w3.org/1999/xlink'%20width='200'%20height='200'%3e%3cdefs%3e%3cstyle%20type='text/css'%3e%3c/style%3e%3c/defs%3e%3cpath%20d='M512%201000.727273a488.727273%20488.727273%200%201%201%20488.727273-488.727273%20488.727273%20488.727273%200%200%201-488.727273%20488.727273z%20m0-919.272728a430.545455%20430.545455%200%201%200%20430.545455%20430.545455A430.545455%20430.545455%200%200%200%20512%2081.454545z'%20fill=''%20p-id='3391'%3e%3c/path%3e%3cpath%20d='M721.454545%20750.545455a28.974545%2028.974545%200%200%201-20.596363-8.494546L281.6%20322.443636a29.090909%2029.090909%200%200%201%2041.192727-41.192727L742.4%20700.858182A29.090909%2029.090909%200%200%201%20721.454545%20750.545455z'%20fill=''%20p-id='3392'%3e%3c/path%3e%3cpath%20d='M302.545455%20750.545455a29.090909%2029.090909%200%200%201-20.596364-49.687273l419.258182-419.607273a29.090909%2029.090909%200%200%201%2041.192727%2041.192727L322.792727%20742.050909a28.974545%2028.974545%200%200%201-20.247272%208.494546z'%20fill=''%20p-id='3393'%3e%3c/path%3e%3c/svg%3e";
 
 const [styleSetting, setStyleSetting] = createStore({});
 const defaultStyle = {
@@ -306,22 +285,13 @@ const defaultStyleJSDelivr = {
   }
 };
 
-const _tmpl$$3 = /*#__PURE__*/template(`<img>`);
-/**
- *一个指示错误的组件
- *
- * @author KotoriK
- * @export
- * @param {IndicatorProps} props
- * @returns
- */
-
+var _tmpl$$3 = /* @__PURE__ */ template(`<img>`);
 function Indicator(prop) {
   const [{
     level
-  }, otherProp] = splitProps(prop, ['level']);
+  }, otherProp] = splitProps(prop, ["level"]);
   return (() => {
-    const _el$ = _tmpl$$3();
+    var _el$ = _tmpl$$3();
     spread(_el$, mergeProps({
       get src() {
         return styleSetting.svg[level];
@@ -331,15 +301,7 @@ function Indicator(prop) {
   })();
 }
 
-const _tmpl$$2 = /*#__PURE__*/template(`<img>`),
-  _tmpl$2 = /*#__PURE__*/template(`<video>`);
-/**
- * 表情的渲染
- *
- * @author KotoriK
- * @param {FaceViewProps} props
- * @returns
- */
+var _tmpl$$2 = /* @__PURE__ */ template(`<img>`), _tmpl$2 = /* @__PURE__ */ template(`<video>`);
 function FaceView(props) {
   const [loaded, setLoaded] = createSignal(false);
   const [error, setError] = createSignal(false);
@@ -351,36 +313,37 @@ function FaceView(props) {
     setLoaded(true);
     setError(false);
   };
-  const [local, forwardProp] = splitProps(props, ['face']);
+  const [local, forwardProp] = splitProps(props, ["face"]);
   const context = useContext(SelectorContext);
   const isImage = () => local.face.url.match(REG_IMAGE);
   const publicProp = {
     src: local.face.url,
-    onClick: context?.select.bind(undefined, local.face),
-    onPointerEnter: context?.inspect.bind(undefined, local.face),
-    onPointerOut: context?.inspect.bind(undefined, undefined),
+    onClick: context?.select.bind(void 0, local.face),
+    onPointerEnter: context?.inspect.bind(void 0, local.face),
+    onPointerOut: context?.inspect.bind(void 0, void 0),
     get hidden() {
       return !loaded();
     },
     onError: handleError
   };
   return [memo((() => {
-    const _c$ = memo(() => !!(!loaded() || error()));
+    var _c$ = memo(() => !!(!loaded() || error()));
     return () => _c$() && createComponent(Indicator, mergeProps({
       get level() {
-        return error() ? 'error' : 'pending';
+        return error() ? "error" : "pending";
       },
       get alt() {
         return local.face.descr ?? local.face.id;
       },
       style: {
-        /* ...props.style, */transition: "opacity 2s ease"
+        /* ...props.style, */
+        transition: "opacity 2s ease"
       }
     }, forwardProp));
   })()), memo((() => {
-    const _c$2 = memo(() => !!isImage());
+    var _c$2 = memo(() => !!isImage());
     return () => _c$2() ? (() => {
-      const _el$ = _tmpl$$2();
+      var _el$ = _tmpl$$2();
       spread(_el$, mergeProps(() => mergeProps$1(publicProp, forwardProp), {
         get alt() {
           return local.face.descr ?? local.face.id;
@@ -394,28 +357,29 @@ function FaceView(props) {
   })())];
 }
 function FaceViewVideoAutoPlay(props) {
-  let ref = undefined;
+  let ref = void 0;
   let timer;
-  const [local, forward] = splitProps(props, ['onCanPlayThrough']);
+  const [local, forward] = splitProps(props, ["onCanPlayThrough"]);
   onCleanup(() => {
     cancelIdleCallback(timer);
   });
   return (() => {
-    const _el$2 = _tmpl$2();
-    const _ref$ = ref;
+    var _el$2 = _tmpl$2();
+    var _ref$ = ref;
     typeof _ref$ === "function" ? use(_ref$, _el$2) : ref = _el$2;
     spread(_el$2, mergeProps(forward, {
       "muted": true,
       "loop": true,
       "playsinline": true,
-      "onCanPlayThrough": e => {
+      "onCanPlayThrough": (e) => {
         if (ref?.paused) {
           local.onCanPlayThrough(e);
           timer = requestIdleCallback(() => {
-            if (!ref?.parentNode) return;
+            if (!ref?.parentNode)
+              return;
             ref.play();
           }, {
-            timeout: 2000
+            timeout: 2e3
           });
         }
       }
@@ -424,7 +388,7 @@ function FaceViewVideoAutoPlay(props) {
   })();
 }
 
-const _tmpl$$1 = /*#__PURE__*/template(`<div>`);
+var _tmpl$$1 = /* @__PURE__ */ template(`<div>`);
 const styleItem = css({
   width: "45px",
   height: "45px",
@@ -433,20 +397,20 @@ const styleItem = css({
 const styleGrid = css({
   overflow: "auto",
   minHeight: 0,
-  flex: '1 1 0',
-  textAlign: 'start',
+  flex: "1 1 0",
+  textAlign: "start",
   height: 300
 });
 function FlexboxView(props) {
   return (() => {
-    const _el$ = _tmpl$$1();
+    var _el$ = _tmpl$$1();
     className(_el$, styleGrid);
     insert(_el$, createComponent(For, {
       get each() {
         return props.facePackage.faces;
       },
-      children: face => createComponent(FaceView, {
-        face: face,
+      children: (face) => createComponent(FaceView, {
+        face,
         "class": styleItem
       })
     }));
@@ -454,107 +418,89 @@ function FlexboxView(props) {
   })();
 }
 
-const _tmpl$ = /*#__PURE__*/template(`<div><div>`);
+var _tmpl$ = /* @__PURE__ */ template(`<div><div>`);
 const main = css({
-  padding: '2px',
+  padding: "2px",
   maxHeight: mainHeight,
-  width: '100%'
+  width: "100%"
 });
 const styleInner = css({
   minHeight: 250,
-  height: '100%',
-  width: '100%',
-  display: 'flex',
-  flexDirection: 'column'
+  height: "100%",
+  width: "100%",
+  display: "flex",
+  flexDirection: "column"
 });
-/**
- * 创建一个表情包选择器组件
- *
- * @author KotoriK
- * @returns 一个selectorState，和一个FaceSelector组件
- */
 function createFaceSelector() {
   const [inspecting, inspect] = createSignal();
-  return [{
-    inspecting
-  },
-  /**
-   *表情包选择器的完整主体
-   *
-   * @author KotoriK
-   * @export
-   * @param { children }
-   * @returns
-   */
-  function FaceSelector(props) {
-    const [_nowPackagePos, setPos] = createSignal(0);
-
-    /*     const head = useRef<HTMLSelectElement>()
-        const body = useRef<HTMLDivElement>() */
-    /*     const handleFaceSelected = useCallback((face_pos: number) => {
-            const nowPackage = facePacks[_nowPackagePos()]
-            onFaceSelected(nowPackage, nowPackage.faces[face_pos])
-            handleHide()
-        }, [handleHide, onFaceSelected, facePacks, _nowPackagePos]) */
-    /*     useEffect(() => {
-            //设定内网格高度
-            if (loadContent) body.current.style.height = classes.mainHeight - head.current.clientHeight + 'px'
-        }, [loadContent]) */
-
-    const nowPackagePos = () => {
-      const maxPos = props.facePacks.length - 1;
-      const _now = _nowPackagePos();
-      if (_now > maxPos) return maxPos; //防止prop发生改动带来越界
-      return _now;
-    };
-    return createComponent(SelectorContext.Provider, {
-      value: {
-        select: face => props.onSelect(props.facePacks[nowPackagePos()], face),
-        inspect
-      },
-      get children() {
-        const _el$ = _tmpl$(),
-          _el$2 = _el$.firstChild;
-        const _ref$ = props.ref;
-        typeof _ref$ === "function" ? use(_ref$, _el$) : props.ref = _el$;
-        className(_el$2, styleInner);
-        insert(_el$2, createComponent(Tabs, {
-          get facePackages() {
-            return props.facePacks;
-          },
-          get selectedPos() {
-            return nowPackagePos();
-          },
-          onSelect: setPos
-        }), null);
-        insert(_el$2, (() => {
-          const _c$ = memo(() => !!props.loadContent);
-          return () => _c$() && createComponent(FlexboxView, {
-            get facePackage() {
-              return props.facePacks[nowPackagePos()];
-            }
-          });
-        })(), null);
-        effect(_p$ => {
-          const _v$ = props.class ? {
+  return [
+    {
+      inspecting
+    },
+    /**
+     *表情包选择器的完整主体
+     *
+     * @author KotoriK
+     * @export
+     * @param { children }
+     * @returns
+     */
+    function FaceSelector(props) {
+      const [_nowPackagePos, setPos] = createSignal(0);
+      const nowPackagePos = () => {
+        const maxPos = props.facePacks.length - 1;
+        const _now = _nowPackagePos();
+        if (_now > maxPos)
+          return maxPos;
+        return _now;
+      };
+      return createComponent(SelectorContext.Provider, {
+        value: {
+          select: (face) => props.onSelect(props.facePacks[nowPackagePos()], face),
+          inspect
+        },
+        get children() {
+          var _el$ = _tmpl$(), _el$2 = _el$.firstChild;
+          var _ref$ = props.ref;
+          typeof _ref$ === "function" ? use(_ref$, _el$) : props.ref = _el$;
+          className(_el$2, styleInner);
+          insert(_el$2, createComponent(Tabs, {
+            get facePackages() {
+              return props.facePacks;
+            },
+            get selectedPos() {
+              return nowPackagePos();
+            },
+            onSelect: setPos
+          }), null);
+          insert(_el$2, (() => {
+            var _c$ = memo(() => !!props.loadContent);
+            return () => _c$() && createComponent(FlexboxView, {
+              get facePackage() {
+                return props.facePacks[nowPackagePos()];
+              }
+            });
+          })(), null);
+          effect((_p$) => {
+            var _v$ = props.class ? {
               [props.class]: true
             } : {
               [borderShadow]: true,
               [bgWhiteBlur]: true,
               [main]: true
-            },
-            _v$2 = props.style;
-          _p$._v$ = classList(_el$, _v$, _p$._v$);
-          _p$._v$2 = style(_el$, _v$2, _p$._v$2);
-          return _p$;
-        }, {
-          _v$: undefined,
-          _v$2: undefined
-        });
-        return _el$;
-      }
-    });
-  }];
+            }, _v$2 = props.style;
+            _p$.e = classList(_el$, _v$, _p$.e);
+            _p$.t = style(_el$, _v$2, _p$.t);
+            return _p$;
+          }, {
+            e: void 0,
+            t: void 0
+          });
+          return _el$;
+        }
+      });
+    }
+  ];
 }
 
 function getFaceFullUrl(face, parentPack) {
@@ -600,47 +546,60 @@ function preprocessFacePack(facepacks) {
 }
 
 function deployRenderer(facePackages) {
-  const render = createFaceRenderer({
-    facePackages: facePackages
+  const render2 = createFaceRenderer({
+    facePackages
   });
   setStyleSetting(defaultStyle);
-  document.querySelectorAll('article.hentry p:not(.ct-respond-form-textarea):not(.form-submit)').forEach(render);
+  document.querySelectorAll("article.hentry p:not(.ct-respond-form-textarea):not(.form-submit)").forEach(render2);
 }
 function deploySelector(facePackages) {
-  let emotionBox;
-  let commentArea;
-  if ((emotionBox = document.querySelector('.emotion-box')) && (commentArea = document.querySelector('#comment'))) {
+  const emotionBox = document.querySelector(".emotion-box");
+  const commentArea = document.querySelector("#comment");
+  if (emotionBox && commentArea) {
+    document.querySelector(".motion-switcher-table th:last-child")?.insertAdjacentHTML("afterend", `<th onclick="motionSwitch('.custom')" class="custom-bar">YukiCat 特供</th>`);
+    const container = document.createElement("div");
+    container.className = "custom-container";
+    container.style.cssText = "display:none;height:110px;overflow-y:auto;width:100%;";
+    emotionBox.append(container);
     const [{
       inspecting
     }, FaceSelector] = createFaceSelector();
-    const [hide, setHide] = createSignal(true);
     const [loadContent, setLoadContent] = createSignal(false);
     render(() => createComponent(FaceSelector, {
       facePacks: facePackages,
       get loadContent() {
         return loadContent();
       },
-      handleHide: () => setHide(true),
-      get style() {
-        return `display:${hide() ? 'none' : 'block'}`;
-      },
       onSelect: (pack, face) => {
-        commentArea.value += `:${pack.id}.${face.id}:`;
+        const insertion = `:${pack.id}.${face.id}:`;
+        if (commentArea.selectionStart === null) {
+          return;
+        }
+        if (commentArea.selectionStart || commentArea.selectionStart === 0) {
+          const startPos = commentArea.selectionStart, endPos = commentArea.selectionEnd;
+          let cursorPos = endPos;
+          commentArea.value = commentArea.value.substring(0, startPos) + insertion + commentArea.value.substring(endPos, commentArea.value.length);
+          cursorPos += insertion.length;
+          commentArea.focus();
+          commentArea.selectionStart = cursorPos;
+          commentArea.selectionEnd = cursorPos;
+        } else {
+          commentArea.value += insertion;
+          commentArea.focus();
+        }
       }
-    }), emotionBox);
-    // init toggler
-    document.getElementById('emotion-toggle')?.addEventListener('click', () => {
+    }), container);
+    document.getElementById("emotion-toggle")?.addEventListener("click", () => {
       setLoadContent(true);
-      setHide(prev => !prev);
+    }, {
+      once: true
     });
-
-    // init Peak
-    const peak = document.createElement('div');
+    const peak = document.createElement("div");
     document.body.append(peak);
     render(() => {
       const imgCaption = () => {
         const face = inspecting();
-        return face ? face.descr ?? face.id : undefined;
+        return face ? face.descr ?? face.id : void 0;
       };
       return createComponent(Peak, {
         get src() {

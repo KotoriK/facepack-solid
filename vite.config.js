@@ -23,5 +23,8 @@ export default defineConfig({
     rollupOptions: {
       external: Object.keys(pkg.dependencies).map(moduleName => new RegExp('^' + moduleName))
     },
-  },
+
+  }/* , define: {
+    "process.env.NODE_ENV": '"production"'
+  } */
 });

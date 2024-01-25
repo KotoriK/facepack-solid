@@ -27,7 +27,7 @@ export interface FaceSelectorProps {
     /**
     *  实现隐藏FaceSelector的方法
     */
-    handleHide: Function
+    handleHide?: ()=>void
     /**
     * 指示是否加载表情
     */

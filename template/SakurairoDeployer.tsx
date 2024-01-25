@@ -13,27 +13,49 @@ export function deployRenderer(facePackages: FacePackage[]) {
     document.querySelectorAll('article.hentry p:not(.ct-respond-form-textarea):not(.form-submit)').forEach(render)
 }
 export function deploySelector(facePackages: FacePackage[]) {
-    let emotionBox: HTMLElement | null
-    let commentArea: HTMLTextAreaElement | HTMLInputElement | null
-    if ((emotionBox = document.querySelector<HTMLElement>('.emotion-box'))
-        && (commentArea = document.querySelector('#comment'))
-    ) {
+    const emotionBox: HTMLElement | null = document.querySelector<HTMLElement>('.emotion-box')!
+    const commentArea: HTMLTextAreaElement | HTMLInputElement | null = document.querySelector('#comment')!
+    if (emotionBox && commentArea) {
+        document.querySelector('.motion-switcher-table th:last-child')?.insertAdjacentHTML('afterend', `<th onclick="motionSwitch('.custom')" class="custom-bar">YukiCat 特供</th>`)
+        const container = document.createElement('div')
+        container.className = 'custom-container'
+        container.style.cssText = "display:none;height:110px;overflow-y:auto;width:100%;"
+        emotionBox.append(container)
         const [{ inspecting }, FaceSelector] = createFaceSelector()
-        const [hide, setHide] = createSignal(true)
-        const [loadContent, setLoadContent] = createSignal(false)
+/*         const [hide, setHide] = createSignal(true)
+ */        const [loadContent, setLoadContent] = createSignal(false)
 
         render(() => <FaceSelector facePacks={facePackages}
             loadContent={loadContent()}
-            handleHide={() => setHide(true)}
-            style={`display:${hide() ? 'none' : 'block'}`}
-            onSelect={(pack, face) => {
-                commentArea!.value += `:${pack.id}.${face.id}:`
-            }} />, emotionBox)
+          //  handleHide={() => setHide(true)}
+/*             style={`display:${hide() ? 'none' : 'block'}`}
+ */            onSelect={(pack, face) => {
+                // 替换当前选中部分的文本
+                const insertion = `:${pack.id}.${face.id}:`
+                if (commentArea.selectionStart === null) {
+                    return
+                }
+                // from Sakurairo-Script grin()
+                if (commentArea.selectionStart || commentArea.selectionStart === 0) {
+                    const startPos = commentArea.selectionStart,
+                        endPos = commentArea.selectionEnd!
+                    let cursorPos = endPos;
+                    commentArea.value = commentArea.value.substring(0, startPos) + insertion + commentArea.value.substring(endPos, commentArea.value.length);
+                    cursorPos += insertion.length;
+                    commentArea.focus();
+                    commentArea.selectionStart = cursorPos;
+                    commentArea.selectionEnd = cursorPos;
+                } else {
+                    commentArea.value += insertion;
+                    commentArea.focus();
+                }
+                // end quote
+            }} />, container)
         // init toggler
         document.getElementById('emotion-toggle')?.addEventListener('click', () => {
             setLoadContent(true)
-            setHide(prev => !prev)
-        })
+/*             setHide(prev => !prev)
+ */        }, { once: true })
 
         // init Peak
         const peak = document.createElement('div')

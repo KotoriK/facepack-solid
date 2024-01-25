@@ -1,7 +1,7 @@
 import * as generic from '../style';
 import { css } from '@emotion/css';
-import { createEffect, createSignal, JSX, onCleanup, onMount } from 'solid-js';
-import { autoUpdate, computePosition, flip, shift } from '@floating-ui/dom'
+import { createEffect, createSignal, JSX, onCleanup } from 'solid-js';
+import { autoUpdate, computePosition } from '@floating-ui/dom'
 import { REG_IMAGE } from '../util/isImage';
 
 export interface PeakProps {
@@ -41,7 +41,7 @@ export function Peak(props: PeakProps) {
             props.anchor!,
             refSelf!,
             {
-                middleware: [shift(), flip()]
+                placement: "right-start",
             }
         )
         setStyle((prevStyle) => {
@@ -54,7 +54,6 @@ export function Peak(props: PeakProps) {
     }
     let cleanup: (() => void) | undefined
     onCleanup(() => cleanup?.())
-
 
     createEffect(async () => {
         if (props.anchor && refSelf) {
