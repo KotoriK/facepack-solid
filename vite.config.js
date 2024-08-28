@@ -8,13 +8,16 @@ import dts from 'vite-plugin-dts'
 import devtools from 'solid-devtools/vite'
 
 export default defineConfig({
-  plugins: [dts({ rollupTypes: true }), devtools({ autoname: true }), solidPlugin(), process.env.ANALYZE && visualizer()],
+  plugins: [dts({ insertTypesEntry: true, exclude: ['template'] }), devtools({ autoname: true }), solidPlugin(), process.env.ANALYZE && visualizer()],
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: {
+        renderer: path.resolve(__dirname, 'src/renderer/index.ts'),
+        importer: path.resolve(__dirname, 'src/FacePacksImporter.ts'),
+        SakurairoDeployer: path.resolve(__dirname, 'src/SakurairoDeployer.tsx'),
+        index: path.resolve(__dirname, 'src/index.ts'),
+      },
       formats: ['es'],
-      // the proper extensions will be added
-      fileName: 'index',
     },
     target: 'esnext',
     minify: false,
@@ -24,7 +27,8 @@ export default defineConfig({
       external: Object.keys(pkg.dependencies).map(moduleName => new RegExp('^' + moduleName))
     },
 
-  }/* , define: {
+  }, publicDir: process.env.NODE_ENV === 'production' ? false : undefined,
+  /* , define: {
     "process.env.NODE_ENV": '"production"'
   } */
 });

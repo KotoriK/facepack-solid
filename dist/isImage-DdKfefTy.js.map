@@ -1,0 +1,1 @@
+{"version":3,"file":"isImage-DdKfefTy.js","sources":["../src/util/isImage.ts"],"sourcesContent":["export const REG_IMAGE = /\\.(jpg|png|gif)$/i"],"names":[],"mappings":"AAAO,MAAM,SAAY,GAAA;;;;"}

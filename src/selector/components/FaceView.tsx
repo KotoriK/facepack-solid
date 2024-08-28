@@ -57,7 +57,7 @@ export default function FaceView(props: FaceViewProps) {
 }
 
 function FaceViewVideoAutoPlay(props: JSX.VideoHTMLAttributes<HTMLVideoElement> & { onCanPlayThrough: JSX.EventHandler<HTMLVideoElement, Event> }) {
-    let ref: HTMLVideoElement | undefined = undefined
+    let ref: HTMLVideoElement | undefined
     let timer: number
     const [local, forward] = splitProps(props, ['onCanPlayThrough'])
 

@@ -1,17 +1,17 @@
 import { createSignal, } from 'solid-js'
 import { render } from 'solid-js/web'
-import { createFaceRenderer, defaultStyle, FacePackage, setStyleSetting } from '../src'
-import { Peak } from '../src/peak'
-import { createFaceSelector } from '../src/selector/components/FaceSelector'
+import { FacePackage } from '.'
+import { Peak } from './peak'
+import { createFaceSelector } from './selector/components/FaceSelector'
 
-export function deployRenderer(facePackages: FacePackage[]) {
+/* export function deployRenderer(facePackages: FacePackage[]) {
     const render = createFaceRenderer({
         facePackages: facePackages
     })
     setStyleSetting(defaultStyle)
 
     document.querySelectorAll('article.hentry p:not(.ct-respond-form-textarea):not(.form-submit)').forEach(render)
-}
+} */
 export function deploySelector(facePackages: FacePackage[]) {
     const emotionBox: HTMLElement | null = document.querySelector<HTMLElement>('.emotion-box')!
     const commentArea: HTMLTextAreaElement | HTMLInputElement | null = document.querySelector('#comment')!
